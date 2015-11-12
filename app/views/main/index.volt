@@ -1,5 +1,5 @@
 <table class='table table-striped'>
-    <thead><tr><th colspan='3'>{{model}}</th></tr></thead>
+    <thead><tr><th colspan='3'>{{title}}</th></tr></thead>
     <tbody>
     {% for object in objects %}
         <tr>
@@ -10,4 +10,4 @@
     {% endfor %}
     </tbody>
 </table>
-<a class='btn btn-primary' href='{{config["siteUrl"]~baseHref~"/frm"}}'>Ajouter...</a>
+<a class='btn btn-primary' href='{{baseHref}}/frm'>Ajouter...</a>

@@ -219,4 +219,7 @@ class Usecase extends \Phalcon\Mvc\Model
         return parent::findFirst($parameters);
     }
 
+    public function toString(){
+        return $this->nom."(".$this->avancement.")";
+    }
 }

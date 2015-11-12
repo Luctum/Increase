@@ -1,17 +1,15 @@
 <?php
 
-class UsersController extends \ControllerBase
+class UsersController extends ControllerBase
 {
     protected $model;
     protected $title;
+    protected $controller;
 
     public function initialize(){
         $this->model = "User";
-        $this->title = "Users";
-    }
-
-    public function indexAction() {
-        parent::indexAction();
+        $this->title = "Utilisateurs";
+        $this->controller = "Users";
     }
 
 }

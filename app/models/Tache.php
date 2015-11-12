@@ -188,4 +188,7 @@ class Tache extends \Phalcon\Mvc\Model
         return parent::findFirst($parameters);
     }
 
+    public function toString(){
+        return $this->libelle."(".$this->avancement.")";
+    }
 }
