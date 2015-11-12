@@ -10,7 +10,7 @@ class ControllerBase extends Controller{
 
     public function indexAction(){
         $objects = call_user_func($this->model."::find");
-        $this->view->setVars(array("objects"=>$objects,"baseHref"=>$this->url->getBaseUri(),"title"=>$this->title));
+        $this->view->setVars(array("objects"=>$objects,"title"=>$this->title, "controller"=>$this->controller));
         $this->view->pick("main/index");
     }
 
