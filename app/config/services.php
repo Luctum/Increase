@@ -7,6 +7,8 @@ use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
+use Ajax\JsUtils;
+use Ajax\bootstrap;
 
 /**
  * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework
@@ -81,3 +83,11 @@ $di->set('session', function () {
 
     return $session;
 });
+
+$di->set("jquery",function(){
+    $jquery= new JsUtils(array("driver"=>"Jquery"));
+    $jquery->bootstrap(new Bootstrap());
+    $jquery->ui(new Ajax\JqueryUI());//optional for JQuery UI
+    return $jquery;
+});
+
