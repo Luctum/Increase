@@ -1,13 +1,17 @@
 <?php
 
-class UsersController extends \Phalcon\Mvc\Controller
+class UsersController extends \ControllerBase
 {
+    protected $model;
+    protected $title;
 
-    public function indexAction()
-    {
-        $users = User::find();
-        $this->view->setVar("users", $users);
-        $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_ACTION_VIEW);
+    public function initialize(){
+        $this->model = "User";
+        $this->title = "Users";
+    }
+
+    public function indexAction() {
+        parent::indexAction();
     }
 
 }

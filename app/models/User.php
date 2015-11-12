@@ -158,6 +158,9 @@ class User extends \Phalcon\Mvc\Model
         $this->hasMany('id', 'Usecase', 'idDev', array('alias' => 'Usecases'));
     }
 
+    public function to_string(){
+        return $this->identite."(".$this->mail.")";
+    }
     /**
      * Returns table name mapped in the model.
      *
