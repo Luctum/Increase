@@ -249,4 +249,9 @@ class Projet extends \Phalcon\Mvc\Model
     public function toString(){
         return $this->nom;
     }
+
+    //Return a string containing the principal content of the model
+    public function getPrincipal(){
+        return "Client : ".$this->client->toString()." <br/> Desciption : ".$this->description;
+    }
 }

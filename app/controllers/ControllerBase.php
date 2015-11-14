@@ -8,25 +8,36 @@ class ControllerBase extends Controller{
     protected $title;
     protected $controller;
 
+    public function afterExecuteRoute($dispatcher){
+        $baseUrl = $this->baseUrl;
+        $this->view->setVar("baseUrl", $baseUrl);
+        $this->view->setVar("controller", $this->controller);
+        $this->view->setVar("title", $this->title);
+    }
+
     public function indexAction(){
         $objects = call_user_func($this->model."::find");
-        $this->view->setVars(array("objects"=>$objects,"title"=>$this->title, "controller"=>$this->controller));
+        $this->view->setVar("objects",$objects);
         $this->view->pick("main/index");
     }
 
-    public function frmAction(){
-        echo "Pas encore implémenté...";
+    public function frmAction($id =  NULL){
+
     }
 
-    public function readAction(){
-        echo "Pas encore implémenté...";
+    public function readAction($id = NULL){
+        if($id != null){
+            $object = call_user_func($this->model.'::find', "id = $id");
+            $this->view->setVar("object",$object);
+            $this->view->pick("main/read");
+        }
     }
 
     public function updateAction(){
         echo "Pas encore implémenté...";
     }
 
-    public function deleteAction(){
+    public function deleteAction($id = null){
         echo "Pas encore implémenté...";
     }
 
@@ -37,4 +48,5 @@ class ControllerBase extends Controller{
     public function asUserAction(){
         echo "Pas encore implémenté...";
     }
+
 }

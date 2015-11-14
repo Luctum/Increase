@@ -162,6 +162,12 @@ class User extends \Phalcon\Mvc\Model
         return $this->identite."(".$this->mail.")";
     }
 
+    //Return a string containing the principal content of the model
+    public function getPrincipal(){
+        return "Identité : ".$this->identite." <br/> Email : ".$this->mail;
+    }
+
+
     /**
      * Returns table name mapped in the model.
      *

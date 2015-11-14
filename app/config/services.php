@@ -8,7 +8,8 @@ use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
 use Ajax\JsUtils;
-use Ajax\bootstrap;
+use Phalcon\Mvc\Dispatcher as MvcDispatcher;
+use Phalcon\Events\Manager as EventsManager;
 
 /**
  * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework
@@ -67,6 +68,12 @@ $di->set('db', function () use ($config) {
     ));
 });
 
+
+$di->set('baseUrl', function () use ($config) {
+    $baseUrl = $config->application->baseUri;
+    return $baseUrl;
+});
+
 /**
  * If the configuration specify the use of metadata adapter use it or use memory otherwise
  */
@@ -91,3 +98,21 @@ $di->set("jquery",function(){
     return $jquery;
 });
 
+$di->set('dispatcher', function () {
+
+    // Create an event manager
+    $eventsManager = new EventsManager();
+
+    // Attach a listener for type "dispatch"
+    $eventsManager->attach("dispatch", function ($event, $dispatcher) {
+        // ...
+    });
+
+    $dispatcher = new MvcDispatcher();
+
+    // Bind the eventsManager to the view component
+    $dispatcher->setEventsManager($eventsManager);
+
+    return $dispatcher;
+
+}, true);
