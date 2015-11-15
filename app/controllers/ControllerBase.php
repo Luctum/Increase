@@ -22,7 +22,7 @@ class ControllerBase extends Controller{
     }
 
     public function frmAction($id =  NULL){
-
+        echo "Pas encore implémenté...";
     }
 
     public function readAction($id = NULL){
@@ -38,15 +38,28 @@ class ControllerBase extends Controller{
     }
 
     public function deleteAction($id = null){
-        echo "Pas encore implémenté...";
+        $object = call_user_func($this->model.'::findFirst', "id = $id");
+        $object->delete();
+        $this->response->redirect("Index/index");
     }
 
     public function asAdminAction(){
-        echo "Pas encore implémenté...";
+        $user = new User();
+        $user->findFirst("role = '%admin%' ");
+        $this->session->set("user", $user);
+        $this->response->redirect("Index/index");
     }
 
     public function asUserAction(){
-        echo "Pas encore implémenté...";
+        $user = new User();
+        $user->findFirst("role = 'user' ");
+        $this->session->set("user", $user);
+        $this->response->redirect("Index/index");
+    }
+
+    public function logoutAction(){
+        $this->session->destroy();
+        $this->response->redirect("Index/index");
     }
 
 }
