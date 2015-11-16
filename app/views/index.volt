@@ -30,12 +30,12 @@
                 </form>
                 {% if this.session.has("user") %}
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Logged<span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ session.user.toString() }}<span class="caret"></span></a>
                         <ul class="dropdown-menu ">
                             <li><a href="#">My Profile</a></li>
                             <li><a href="#">My Projects</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#">Sign out</a></li>
+                            <li><a href="{{ url.get(controller~"/logout") }}">Sign out</a></li>
                         </ul>
                     </li>
                 {% else %}
@@ -45,6 +45,9 @@
                             <li><a href="#">Sign In</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="#">Sign Up !</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{{ url.get(controller~"/asUser") }}">asUser</a></li>
+                            <li><a href="{{ url.get(controller~"/asAdmin") }}">asAdmin</a></li>
                         </ul>
                     </li>
                 {% endif %}

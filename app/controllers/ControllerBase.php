@@ -44,15 +44,14 @@ class ControllerBase extends Controller{
     }
 
     public function asAdminAction(){
-        $user = new User();
+        $user = User::findFirst("id=2");
         $user->findFirst("role = '%admin%' ");
         $this->session->set("user", $user);
         $this->response->redirect("Index/index");
     }
 
     public function asUserAction(){
-        $user = new User();
-        $user->findFirst("role = 'user' ");
+        $user = User::findFirst("id=1");
         $this->session->set("user", $user);
         $this->response->redirect("Index/index");
     }
