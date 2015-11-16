@@ -64,9 +64,9 @@
 			{{ content() }}
 		</div>
 	</div>
-	<div id="footer">
+	<footer id="footer">
 		<div class="container">
 		</div>
-	</div>
+	</footer>
 </body>
 </html>
