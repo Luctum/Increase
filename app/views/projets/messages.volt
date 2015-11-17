@@ -9,7 +9,7 @@
 
                 <h5 class="media-heading">
                     {{ m.getUser().getIdentite() }}
-                {% if session.get("user").getId() == m.getUser().getId() %}
+                {% if session.get("user") != null and session.get("user").getId() == m.getUser().getId() %}
                     <i>(Vous)</i>
                 {% endif %}</h5>
 
