@@ -47,3 +47,5 @@ Temporary Items
 .idea/*
 *.iml
 app/cache/
+.settings/
+.project/

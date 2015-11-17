@@ -10,6 +10,7 @@ use Phalcon\Session\Adapter\Files as SessionAdapter;
 use Ajax\JsUtils;
 use Phalcon\Mvc\Dispatcher as MvcDispatcher;
 use Phalcon\Events\Manager as EventsManager;
+use Ajax\Bootstrap;
 
 /**
  * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework

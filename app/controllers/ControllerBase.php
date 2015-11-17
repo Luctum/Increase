@@ -39,6 +39,7 @@ class ControllerBase extends Controller{
 
     public function deleteAction($id = null){
         $object = call_user_func($this->model.'::findFirst', "id = $id");
+        
         $object->delete();
         $this->response->redirect("Index/index");
     }
