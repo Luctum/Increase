@@ -41,7 +41,12 @@ class ProjetsController extends \ControllerBase{
         $progress->showcaption(true);
 
         //Creation des évenements onClick et des éléments sur le menu
-        $this->jquery->getOnClick("#menu1","Projets/messages/$id","#test");
+        $this->jquery->getOnClick("#menu1","Projets/resume/$id","#contentProjet");
+        $this->jquery->getOnClick("#menu2","Projets/contributors/$id","#contentProjet");
+        $this->jquery->getOnClick("#menu3","Projets/usecases/$id","#contentProjet");
+        $this->jquery->getOnClick("#menu4","Projets/stats/$id","#contentProjet");
+        $this->jquery->getOnClick("#menu5","Projets/messages/$id","#contentProjet");
+
         //Compilation de Jquery dans la vue
         $this->jquery->compile($this->view);
     }
@@ -50,5 +55,25 @@ class ProjetsController extends \ControllerBase{
         $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
         $messages = Message::find("idProjet = $id");
         $this->view->setVar("messages",$messages);
+    }
+
+    public function resumeAction($id=null){
+        $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
+        echo "Pas encore implémenté";
+    }
+
+    public function usecasesAction($id=null){
+        $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
+        echo "Pas encore implémenté";
+    }
+
+    public function contributorsAction($id=null){
+        $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
+        echo "Pas encore implémenté";
+    }
+
+    public function statsAction($id=null){
+        $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
+        echo "Pas encore implémenté";
     }
 }

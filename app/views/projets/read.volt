@@ -33,9 +33,7 @@
             </div>
         </div>
     </div>
-    <div class="container">
-
-        ezae
+    <div class="container" id="contentProjet">
     </div>
 </div>
 {{ script_foot }}
