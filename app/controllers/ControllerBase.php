@@ -59,5 +59,7 @@ class ControllerBase extends Controller{
         $this->session->destroy();
         $this->response->redirect("Index/index");
     }
+    
+    
 
 }
