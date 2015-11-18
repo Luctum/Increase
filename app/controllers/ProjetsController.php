@@ -39,7 +39,7 @@ class ProjetsController extends \ControllerBase{
         //Création de la progressbar
         $progress= $this->jquery->bootstrap()->htmlProgressbar("progress","info",$avancementReel);
         $progress->showcaption(true);
-
+        $this->jquery->get("Projets/resume/$id","#contentProjet");
         //Creation des évenements onClick et des éléments sur le menu
         $this->jquery->getOnClick("#menu1","Projets/resume/$id","#contentProjet");
         $this->jquery->getOnClick("#menu2","Projets/contributors/$id","#contentProjet");
@@ -55,11 +55,20 @@ class ProjetsController extends \ControllerBase{
         $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
         $messages = Message::find("idProjet = $id");
         $this->view->setVar("messages",$messages);
+
     }
 
     public function resumeAction($id=null){
         $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
         echo "Pas encore implémenté";
+        $projet = Projet::findFirst($id);
+        $usecases = Usecase::find("idProjet = $id");
+        $messages = Message::find("idProjet = $id");
+
+        $this->view->setVar("projet",$projet);
+        $this->view->setVar("messages",$messages);
+        $this->view->setVar("usecases",$usecases);
+
     }
 
     public function usecasesAction($id=null){
@@ -76,4 +85,5 @@ class ProjetsController extends \ControllerBase{
         $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
         echo "Pas encore implémenté";
     }
+
 }

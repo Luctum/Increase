@@ -33,7 +33,9 @@
             </div>
         </div>
     </div>
-    <div class="container" id="contentProjet">
+        <div class="col-sm-9">
+            <div id="contentProjet">
+        </div>
     </div>
 </div>
 {{ script_foot }}
