@@ -3,9 +3,9 @@
     {%  for m in messages %}
         <div class="media">
             <div class="media-left">
-                    <img class="media-object" src="..." alt="Avatar">
+                    <img class="media-object" id="avatar" src="{{ m.getUser().getImage() }}" alt="Avatar">
             </div>
-            <div class="media-body">
+            <div class="media-body" id="msg">
 
                 <h5 class="media-heading">
                     {{ m.getUser().getIdentite() }}

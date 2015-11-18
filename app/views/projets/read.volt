@@ -4,8 +4,8 @@
 </div>
 
 <div class="alert alert-warning">
-            <span class="h"><img class="logo-projet" src="{{ projet.getImage() }}">
-            Projet : {{ projet.getNom() }}</span>
+            <img class="logo-projet" src="{{ projet.getImage() }}">
+    <span class="h">Projet : {{ projet.getNom() }}</span>
 </div>
 <div class="row">
     <div class="col-sm-3">

@@ -29,8 +29,8 @@
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form>
                 {% if this.session.has("user") %}
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ session.user.toString() }}<span class="caret"></span></a>
+                    <li class="dropdown" id="profilbtn">
+                        <a href="#" class="dropdown-toggle"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ session.user.getIdentite()}} <img id="icone" src="{{ session.user.getImage() }}"><span class="caret"></span></a>
                         <ul class="dropdown-menu ">
                             <li><a href="#">My Profile</a></li>
                             <li><a href="#">My Projects</a></li>

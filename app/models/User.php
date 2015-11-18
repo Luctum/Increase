@@ -15,6 +15,7 @@ class User extends \Phalcon\Mvc\Model
      */
     protected $mail;
 
+    protected $image;
     /**
      *
      * @var string
@@ -98,6 +99,11 @@ class User extends \Phalcon\Mvc\Model
         return $this;
     }
 
+    public function setImage($image){
+        $this->image = $image;
+        return $this;
+    }
+
     /**
      * Returns the value of field id
      *
@@ -118,6 +124,9 @@ class User extends \Phalcon\Mvc\Model
         return $this->mail;
     }
 
+    public function getImage(){
+        return $this->image;
+    }
     /**
      * Returns the value of field password
      *
