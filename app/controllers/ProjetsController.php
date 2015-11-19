@@ -54,13 +54,16 @@ class ProjetsController extends \ControllerBase{
     public function messagesAction($id=null){
         $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
         $messages = Message::find("idProjet = $id");
-        $this->view->setVar("messages",$messages);
+        $this->jquery->postFormOnClick("#btnRep","Projets/update","envoiMsg");
+        $this->jquery->getOnClick("#btnRep","Projets/messages/$id");
+        $this->jquery->compile($this->view);
 
+        $this->view->setVar("msg",$messages);
+        $this->view->render("projets","messages");
     }
 
     public function resumeAction($id=null){
         $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
-        echo "Pas encore implémenté";
         $projet = Projet::findFirst($id);
         $usecases = Usecase::find("idProjet = $id");
         $messages = Message::find("idProjet = $id");

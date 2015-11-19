@@ -1,7 +1,6 @@
 <?php
 
 use Phalcon\Mvc\Controller;
-
 class ControllerBase extends Controller{
 
     protected $model;
@@ -25,6 +24,16 @@ class ControllerBase extends Controller{
         echo "Pas encore implémenté...";
     }
 
+    public function getInstance($id=NULL){
+        if(isset($id)){
+            $object=call_user_func($this->model."::findfirst",$id);
+        }else{
+            $className=$this->model;
+            $object=new $className();
+        }
+        return $object;
+    }
+
     public function readAction($id = NULL){
         if($id != null){
             $object = call_user_func($this->model.'::find', "id = $id");
@@ -33,8 +42,17 @@ class ControllerBase extends Controller{
         }
     }
 
+    protected function setValuesToObject(&$object){
+        $object->assign($_POST);
+    }
+
     public function updateAction(){
-        echo "Pas encore implémenté...";
+        if($this->request->isPost()){
+            $object=$this->getInstance(@$_POST["id"]);
+            $this->setValuesToObject($object);
+            $object->save();
+            $this->dispatcher->forward(array("controller"=>$this->dispatcher->getControllerName(),"action"=>"index"));
+        }
     }
 
     public function deleteAction($id = null){
