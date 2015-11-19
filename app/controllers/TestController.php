@@ -10,7 +10,7 @@ class TestController extends \Phalcon\Mvc\Controller
     public function indexAction()
     {
     	$bootstrap = $this->jquery->bootstrap();
-    	echo $bootstrap->htmlAlert("alert2-1","Voulez-vous vraiment supprimer l'utilisateur  <div class='btn btn-default id='btnOui'>Oui</div>","alert-success");
+    	echo $bootstrap->htmlAlert("alert1","Le nom d'utilisateur ou le mot de passe est incorrecte.");
     }
 
     public function initialize() {
