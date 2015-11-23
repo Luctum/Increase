@@ -1,4 +1,6 @@
 Messages :
+
+<div id="messages">
 {% for r in msg %}
         <div class="media" id="msgGlobal">
             <div class="media-left">
@@ -12,16 +14,22 @@ Messages :
                 {% endif %}</h5>
                 {{ r.getContent() }}
             </div>
+            <div id="newMsg">
+
+            </div>
         </div>
 {% endfor %}
-<br/><br/>
-<form name="envoiMsg" method="post" action="" class="form-group">
-    <input class="form-control" type="hidden" id="id" value="">
-    <input class="form-control" type="hidden" id="author" value="{{ session.get("user").getId() }}">
-    <input class="form-control" type="hidden" id="fil">
-    <input class="form-control" type="text" id="objet" placeholder="Entrez un objet">
-    <textarea class="form-control" type="text" id="message" placeholder="Entrez un message"></textarea>
-    <input class="btn btn-primary" type="submit" id="btnRep" value="Repondre">
+</div>
+<form name="newMsgForm" method="post" action="{{ url("Messages/update") }}">
+    <div class="form-group">
+        <input  class="form-control" type="hidden" id="idProjet" value="{{ idProj }}" name="idProjet">
+        <input  class="form-control" type="hidden" id="author" name="idUser" value="{{ session.get("user").getId() }}">
+        <input  class="form-control" type="text" id="objet" name="objet" placeholder="Entrez un objet">
+        <textarea  class="form-control" type="text" id="message" placeholder="Entrez un message" name="content"></textarea>
+        <input type="submit" value="Envoyer">
+    </div>
 </form>
+{{ q['submitMsg'] }}
+
 
 {{ script_foot }}

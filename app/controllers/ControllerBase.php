@@ -1,11 +1,14 @@
 <?php
 
 use Phalcon\Mvc\Controller;
+use Phalcon\Mvc\Url;
+
 class ControllerBase extends Controller{
 
     protected $model;
     protected $title;
     protected $controller;
+    protected $messageTimerInterval=3000;
 
     public function afterExecuteRoute($dispatcher){
         $baseUrl = $this->baseUrl;
@@ -14,7 +17,16 @@ class ControllerBase extends Controller{
         $this->view->setVar("title", $this->title);
     }
 
-    public function indexAction(){
+    public function indexAction($message=NULL){
+        $msg="";
+        if(isset($message)){
+            if(is_string($message)){
+                $message=new DisplayedMessage($message);
+            }
+            $message->setTimerInterval($this->messageTimerInterval);
+            $msg=$this->_showDisplayedMessage($message);
+        }
+        $this->view->setVar("msg",$msg);
         $objects = call_user_func($this->model."::find");
         $this->view->setVar("objects",$objects);
         $this->view->pick("main/index");
@@ -46,14 +58,30 @@ class ControllerBase extends Controller{
         $object->assign($_POST);
     }
 
+    /////////////////////////////////////////
     public function updateAction(){
         if($this->request->isPost()){
             $object=$this->getInstance(@$_POST["id"]);
             $this->setValuesToObject($object);
-            $object->save();
-            $this->dispatcher->forward(array("controller"=>$this->dispatcher->getControllerName(),"action"=>"index"));
+            if(@$_POST["id"]){
+                try{
+                    $object->save();
+                    $msg=new DisplayedMessage("Instance de ".$this->model." modifiée");
+                }catch(\Exception $e){
+                    $msg=new DisplayedMessage("Impossible d'ajouter l'instance de ".$this->model,"danger : $e");
+                }
+            }else{
+                try{
+                    $object->save();
+                    $msg=new DisplayedMessage("Instance de ".$this->model." ajoutée");
+                }catch(\Exception $e){
+                    $msg=new DisplayedMessage("Impossible d'ajouter l'instance de ".$this->model,"danger : $e");
+                }
+            }
+            $this->dispatcher->forward(array("controller"=>$this->dispatcher->getControllerName(),"action"=>"index","params"=>array($msg)));
         }
     }
+    /////////////////////////////////////
 
     public function deleteAction($id = null){
         $object = call_user_func($this->model.'::findFirst', "id = $id");
@@ -76,6 +104,58 @@ class ControllerBase extends Controller{
     public function logoutAction(){
         $this->session->destroy();
         $this->response->redirect("Index/index");
+    }
+
+
+    /**
+     * Affiche un message Alert bootstrap
+     * @param DisplayedMessage $message
+     */
+    public function _showDisplayedMessage($message){
+        return $message->compile($this->jquery);
+    }
+    /**
+     * Affiche un message Alert bootstrap
+     * @param string $message texte du message
+     * @param string $type type du message (info, success, warning ou danger)
+     * @param number $timerInterval durée en millisecondes d'affichage du message (0 pour que le message reste affiché)
+     * @param string $dismissable si vrai, l'alert dispose d'une croix de fermeture
+     */
+    public function _showMessage($message,$type="success",$timerInterval=0,$dismissable=true,$visible=true){
+        $message=new DisplayedMessage($message,$type,$timerInterval,$dismissable,$visible);
+        $this->_showDisplayedMessage($message);
+    }
+
+
+    public function messageSuccess($message,$timerInterval=0,$dismissable=true){
+        $this->_showMessage($message,"success",$timerInterval,$dismissable);
+    }
+    /**
+     * Affiche un message Alert bootstrap de type warning
+     * @param string $message texte du message
+     * @param number $timerInterval durée en millisecondes d'affichage du message (0 pour que le message reste affiché)
+     * @param string $dismissable si vrai, l'alert dispose d'une croix de fermeture
+     */
+    public function messageWarning($message,$timerInterval=0,$dismissable=true){
+        $this->_showMessage($message,"warning",$timerInterval,$dismissable);
+    }
+    /**
+     * Affiche un message Alert bootstrap de type danger
+     * @param string $message texte du message
+     * @param number $timerInterval durée en millisecondes d'affichage du message (0 pour que le message reste affiché)
+     * @param string $dismissable si vrai, l'alert dispose d'une croix de fermeture
+     */
+    public function messageDanger($message,$timerInterval=0,$dismissable=true){
+        $this->_showMessage($message,"danger",$timerInterval,$dismissable);
+    }
+    /**
+     * Affiche un message Alert bootstrap de type info
+     * @param string $message texte du message
+     * @param number $timerInterval durée en millisecondes d'affichage du message (0 pour que le message reste affiché)
+     * @param string $dismissable si vrai, l'alert dispose d'une croix de fermeture
+     */
+    public function messageInfo($message,$timerInterval=0,$dismissable=true){
+        $this->_showMessage($message,"info",$timerInterval,$dismissable);
     }
 
 }

@@ -2,9 +2,11 @@
 <html>
 	<head>
 		<title>Increase</title>
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
 		<?php echo $this->tag->stylesheetLink('css/bootstrap.min.css'); ?>
+        <?php echo $this->tag->javascriptInclude('js/bootstrap.min.js'); ?>
 		<?php echo $this->tag->stylesheetLink('css/styles.css'); ?>
-		<?php echo $this->tag->javascriptInclude('js/bootstrap.min.js'); ?>
+        <link rel="icon" type="image/png" sizes="16x16" href="<?php echo $this->url->get('img/logo.png'); ?>">
 	</head>
 	<meta charset="UTF-8">
 	<body>
@@ -26,6 +28,29 @@
                     </div>
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form>
+                <?php if ($this->session->has('user')) { ?>
+                    <li class="dropdown" id="profilbtn">
+                        <a href="#" class="dropdown-toggle"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $this->session->user->getIdentite(); ?> <img id="icone" src="<?php echo $this->session->user->getImage(); ?>"><span class="caret"></span></a>
+                        <ul class="dropdown-menu ">
+                            <li><a href="#">My Profile</a></li>
+                            <li><a href="#">My Projects</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="<?php echo $this->url->get($controller . '/logout'); ?>">Sign out</a></li>
+                        </ul>
+                    </li>
+                <?php } else { ?>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sign In<span class="caret"></span></a>
+                        <ul class="dropdown-menu ">
+                            <li><a href="#">Sign In</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Sign Up !</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="<?php echo $this->url->get($controller . '/asUser'); ?>">asUser</a></li>
+                            <li><a href="<?php echo $this->url->get($controller . '/asAdmin'); ?>">asAdmin</a></li>
+                        </ul>
+                    </li>
+                <?php } ?>
             </div>
 
         </div>
@@ -39,9 +64,9 @@
 			<?php echo $this->getContent(); ?>
 		</div>
 	</div>
-	<div id="footer">
+	<footer id="footer">
 		<div class="container">
 		</div>
-	</div>
+	</footer>
 </body>
 </html>

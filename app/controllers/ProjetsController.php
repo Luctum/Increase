@@ -1,6 +1,7 @@
 <?php
 
 use Phalcon\Mvc\View;
+use Phalcon\Mvc\Url;
 
 class ProjetsController extends \ControllerBase{
 
@@ -54,11 +55,14 @@ class ProjetsController extends \ControllerBase{
     public function messagesAction($id=null){
         $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
         $messages = Message::find("idProjet = $id");
-        $this->jquery->postFormOnClick("#btnRep","Projets/update","envoiMsg");
-        $this->jquery->getOnClick("#btnRep","Projets/messages/$id");
+        $url = new Url();
+        $btnSubmit = $this->jquery->bootstrap()->htmlButton("submitMsg","Envoyer");
+        $this->jquery->postFormOn("click","submitMsg",$url->get("Messages/update"),"newMsgForm", "#newMsg");
         $this->jquery->compile($this->view);
 
         $this->view->setVar("msg",$messages);
+        $this->view->setVar("idProj",$id);
+
         $this->view->render("projets","messages");
     }
 

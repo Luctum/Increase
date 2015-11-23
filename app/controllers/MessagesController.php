@@ -7,7 +7,7 @@ class MessagesController extends ControllerBase
         $this->model = "Message";
         $this->title = "Messages";
         $this->controller= "Messages";
-    }
 
+    }
 }
 
