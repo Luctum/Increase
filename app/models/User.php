@@ -29,7 +29,7 @@ class User extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var string
+     * @var int
      */
     protected $role;
 

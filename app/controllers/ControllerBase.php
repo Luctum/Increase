@@ -1,6 +1,7 @@
 <?php
 
 use Phalcon\Mvc\Controller;
+use Phalcon\Acl\Adapter\Memory as AclList;
 
 class ControllerBase extends Controller{
 
@@ -62,5 +63,13 @@ class ControllerBase extends Controller{
         $this->session->destroy();
         $this->response->redirect("Index/index");
     }
+    
+    public function aclAction() {
+    	$acl = new AclList();
+    	$acl->setDefaultAction(Phalcon\Acl::DENY);
+    	
+    	foreach()
+    }
 
+    
 }
