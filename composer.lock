@@ -163,12 +163,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jcheron/phalcon-jquery.git",
-                "reference": "8db95b08ae2ce5fc86ecfd5a6168ed2407447db0"
+                "reference": "63bf24824f3b042fa941bf7d46d57f381e274415"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jcheron/phalcon-jquery/zipball/8db95b08ae2ce5fc86ecfd5a6168ed2407447db0",
-                "reference": "8db95b08ae2ce5fc86ecfd5a6168ed2407447db0",
+                "url": "https://api.github.com/repos/jcheron/phalcon-jquery/zipball/63bf24824f3b042fa941bf7d46d57f381e274415",
+                "reference": "63bf24824f3b042fa941bf7d46d57f381e274415",
                 "shasum": ""
             },
             "require": {
@@ -191,7 +191,14 @@
                 }
             ],
             "description": "A JQuery and UI library for Phalcon MVC framework",
-            "time": "2015-11-10 01:29:28"
+            "keywords": [
+                "bootstrap",
+                "framework",
+                "jQuery UI",
+                "jquery",
+                "phalcon"
+            ],
+            "time": "2015-11-24 01:36:23"
         },
         {
             "name": "twitter/bootstrap",

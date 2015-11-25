@@ -75,12 +75,26 @@ class ProjetsController extends \ControllerBase{
         $this->view->setVar("projet",$projet);
         $this->view->setVar("messages",$messages);
         $this->view->setVar("usecases",$usecases);
-
     }
 
     public function usecasesAction($id=null){
         $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
-        echo "Pas encore implémenté";
+        $contributor = [];
+        $usecases = Usecase::find("idProjet = $id");
+
+        foreach($usecases as $uc){
+            $contributor[] = $uc->getUser();
+        }
+
+        $contributor = array_unique($contributor, SORT_REGULAR);
+
+
+        $taches = Tache::find();
+
+
+        $this->view->setVar("contributors",$contributor);
+        $this->view->setVar("usecases",$usecases);
+        $this->view->setVar("taches",$taches);
     }
 
     public function contributorsAction($id=null){
