@@ -1,10 +1,9 @@
-
 <div class="progress">
     {{ q['progress'] }}
 </div>
 
 <div class="alert alert-warning">
-            <img class="logo-projet" src="{{ projet.getImage() }}">
+    <img class="logo-projet" src="{{ projet.getImage() }}">
     <span class="h">Projet : {{ projet.getNom() }}</span>
 </div>
 <div class="row">
@@ -12,7 +11,8 @@
         <div class="sidebar-nav">
             <div class="navbar " role="navigation">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target=".sidebar-navbar-collapse">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -33,8 +33,8 @@
             </div>
         </div>
     </div>
-        <div class="col-sm-9">
-            <div id="contentProjet">
+    <div class="col-sm-9">
+        <div id="contentProjet">
         </div>
     </div>
 </div>

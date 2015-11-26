@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5b1225efcd356374f433d1f2fd5be8f9",
-    "content-hash": "422f6be34086e4fc48db589ac7fbe020",
+    "hash": "3f17af451121e8a025e38a14e80b19f5",
+    "content-hash": "0af70a274545f2104ac2974b9885ce34",
     "packages": [
         {
             "name": "components/jquery",
@@ -163,12 +163,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jcheron/phalcon-jquery.git",
-                "reference": "63bf24824f3b042fa941bf7d46d57f381e274415"
+                "reference": "09bbc1e9a3ff42e40242d768c589bdf4fb1bc221"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jcheron/phalcon-jquery/zipball/63bf24824f3b042fa941bf7d46d57f381e274415",
-                "reference": "63bf24824f3b042fa941bf7d46d57f381e274415",
+                "url": "https://api.github.com/repos/jcheron/phalcon-jquery/zipball/09bbc1e9a3ff42e40242d768c589bdf4fb1bc221",
+                "reference": "09bbc1e9a3ff42e40242d768c589bdf4fb1bc221",
                 "shasum": ""
             },
             "require": {
@@ -198,7 +198,59 @@
                 "jquery",
                 "phalcon"
             ],
-            "time": "2015-11-24 01:36:23"
+            "time": "2015-11-26 01:03:39"
+        },
+        {
+            "name": "ksubileau/color-thief-php",
+            "version": "v1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ksubileau/color-thief-php.git",
+                "reference": "a5bb45b18f590c745c350d005ca4c5992bd83d7b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ksubileau/color-thief-php/zipball/a5bb45b18f590c745c350d005ca4c5992bd83d7b",
+                "reference": "a5bb45b18f590c745c350d005ca4c5992bd83d7b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.3",
+                "squizlabs/php_codesniffer": "~1.5"
+            },
+            "suggest": {
+                "ext-gd": "to use the GD image adapter.",
+                "ext-imagick": "to use the Imagick image adapter."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "ColorThief": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "CC-BY-2.5"
+            ],
+            "authors": [
+                {
+                    "name": "Kevin Subileau",
+                    "homepage": "http://www.kevinsubileau.fr"
+                }
+            ],
+            "description": "Grabs the dominant color or a representative color palette from an image.",
+            "homepage": "http://www.kevinsubileau.fr/projets/color-thief-php",
+            "keywords": [
+                "color",
+                "dominant",
+                "palette",
+                "php",
+                "thief"
+            ],
+            "time": "2014-10-30 10:49:52"
         },
         {
             "name": "twitter/bootstrap",
