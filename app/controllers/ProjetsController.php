@@ -23,6 +23,11 @@ class ProjetsController extends \ControllerBase
         $messages = Message::find("idProjet = $id");
 
         $color = $projet->getDominantColor();
+        if($color["r"] == 0 && $color["g"] == 0 && $color["b"] == 0){
+            $color["r"] = 240;
+            $color["g"] = 240;
+            $color["b"] = 240;
+        }
 
         //Calcul le taux de finition du projet en fonction du nombre d'usecases total et du taux d'avancement sur chaque usecases.
         $countUsecases = count($usecases);

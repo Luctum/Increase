@@ -259,7 +259,7 @@ class Projet extends \Phalcon\Mvc\Model
         return "Client : " . $this->client->toString() . " <br/> Desciption : " . $this->description;
     }
 
-    //Récupère la couleur dominante de l'image du profil
+    //Rï¿½cupï¿½re la couleur dominante de l'image du profil
     public function getDominantColor()
     {
         $rTotal = 0;
@@ -285,7 +285,11 @@ class Projet extends \Phalcon\Mvc\Model
 
             }
         }
-        $tabColor = ["red" => $rTotal, "green" => $gTotal, "blue" => $bTotal];
+        $rTotal = round($rTotal/$total);
+        $gTotal = round($gTotal/$total);
+        $bTotal = round($bTotal/$total);
+
+        $tabColor = ["r" => $rTotal, "g" => $gTotal, "b" => $bTotal];
         return $tabColor;
     }
 
@@ -294,7 +298,7 @@ class Projet extends \Phalcon\Mvc\Model
     public function imageCreateFromAny()
     {
         $img = $this->getImage();
-        $type = exif_imagetype($img); // [] if you don't have exif you could use getImageSize()
+        $type = getImageSize($img); // [] if you don't have exif you could use getImageSize()
         $allowedTypes = array(
             1,  // [] gif
             2,  // [] jpg
