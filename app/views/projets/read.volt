@@ -24,7 +24,6 @@
                         <li><a id="menu1">A propos</a></li>
                         <li><a id="menu2">Contributeurs</a></li>
                         <li><a id="menu3">Usecases / Tâches</a></li>
-                        <li><a id="menu4">Statistiques</a></li>
                         <li class="divider"></li>
                         <li><a id="menu5">Messages<span class="badge">{{ messages.count() }}</span></a></li>
                     </ul>

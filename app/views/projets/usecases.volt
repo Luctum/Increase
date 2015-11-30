@@ -1,7 +1,7 @@
 <table class="table table-bordered">
     <tr>
         <td>Nom</td>
-        <td>Poid</td>
+        <td>Poids</td>
         <td>Avancement</td>
         <td>Développeur</td>
     </tr>
@@ -38,7 +38,6 @@
                     </td>
                 </tr>
             {% endif %}
-
         {% endfor %}
     {% endfor %}
 </table>

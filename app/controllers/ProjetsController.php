@@ -16,6 +16,12 @@ class ProjetsController extends \ControllerBase
         $this->controller = "Projets";
     }
 
+    public function indexAction()
+    {
+        $projets = Projet::find();
+        $this->view->setVar("projets", $projets);
+    }
+
     public function readAction($id = null)
     {
         $projet = Projet::findFirst($id);
@@ -49,6 +55,8 @@ class ProjetsController extends \ControllerBase
         $avancementReel = ($totalAvancementReel / $totalAvancementFini) * 100;
         $avancementReel = number_format($avancementReel, 1);
 
+        $this->jquery->postFormOnClick("#submitMsg", "Messages/update", "#newMsgForm");
+
         //Passage des différentes variables
         $this->view->setVar("colorTexte", $colorTexte);
         $this->view->setVar("color", $color);
@@ -65,7 +73,6 @@ class ProjetsController extends \ControllerBase
         $this->jquery->getOnClick("#menu1", "Projets/resume/$id", "#contentProjet");
         $this->jquery->getOnClick("#menu2", "Projets/contributors/$id", "#contentProjet");
         $this->jquery->getOnClick("#menu3", "Projets/usecases/$id", "#contentProjet");
-        $this->jquery->getOnClick("#menu4", "Projets/stats/$id", "#contentProjet");
         $this->jquery->getOnClick("#menu5", "Projets/messages/$id", "#contentProjet");
 
         //Compilation de Jquery dans la vue
@@ -131,10 +138,5 @@ class ProjetsController extends \ControllerBase
 
     }
 
-    public function statsAction($id = null)
-    {
-        $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
-        echo "Pas encore implémenté";
-    }
 
 }
