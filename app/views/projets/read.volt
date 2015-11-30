@@ -1,12 +1,9 @@
-
-
-
 <div class="progress">
     {{ q['progress'] }}
 </div>
-    <div class="alert alert-custom" style="background-color: rgb({{ color["r"] }},{{ color["g"] }},{{ color["b"] }});">
+<div class="alert alert-custom" style="background-color: rgb({{ color["r"] }},{{ color["g"] }},{{ color["b"] }});">
     <img class="logo-projet" src="{{ projet.getImage() }}">
-    <span class="h">Projet : {{ projet.getNom() }}</span>
+    <span class="h" style="color: {{ colorTexte }};">Projet : {{ projet.getNom() }}</span>
 </div>
 <div class="row">
     <div class="col-sm-3">

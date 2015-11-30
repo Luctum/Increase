@@ -21,12 +21,20 @@ class ProjetsController extends \ControllerBase
         $projet = Projet::findFirst($id);
         $usecases = Usecase::find("idProjet = $id");
         $messages = Message::find("idProjet = $id");
+        $colorTexte = "black";
 
         $color = $projet->getDominantColor();
-        if($color["r"] == 0 && $color["g"] == 0 && $color["b"] == 0){
+        //Si jamais la couleur retournée est noire, alors change sa couleur en gris clair
+        if ($color["r"] == 0 && $color["g"] == 0 && $color["b"] == 0) {
             $color["r"] = 240;
             $color["g"] = 240;
             $color["b"] = 240;
+            //Sinon si la couleur est trop sombre change l'écriture en blanc pour qu'elle sois visible
+        } elseif ($color["r"] < 120 || $color["g"] < 120 || $color["b"] < 120) {
+            $colorTexte = "white";
+            $color["r"] += 20;
+            $color["g"] += 20;
+            $color["b"] += 20;
         }
 
         //Calcul le taux de finition du projet en fonction du nombre d'usecases total et du taux d'avancement sur chaque usecases.
@@ -42,6 +50,7 @@ class ProjetsController extends \ControllerBase
         $avancementReel = number_format($avancementReel, 1);
 
         //Passage des différentes variables
+        $this->view->setVar("colorTexte", $colorTexte);
         $this->view->setVar("color", $color);
         $this->view->setVar("projet", $projet);
         $this->view->setVar("messages", $messages);
