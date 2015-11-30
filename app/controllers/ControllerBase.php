@@ -47,14 +47,14 @@ class ControllerBase extends Controller{
 
     public function asAdminAction(){
         $user = new User();
-        $user->findFirst("role = '%admin%' ");
+        $user->findFirst("role = '0' ");
         $this->session->set("user", $user);
         $this->response->redirect("Index/index");
     }
 
     public function asUserAction(){
         $user = new User();
-        $user->findFirst("role = 'user' ");
+        $user->findFirst("role = '2' ");
         $this->session->set("user", $user);
         $this->response->redirect("Index/index");
     }
@@ -62,14 +62,5 @@ class ControllerBase extends Controller{
     public function logoutAction(){
         $this->session->destroy();
         $this->response->redirect("Index/index");
-    }
-    
-    public function aclAction() {
-    	$acl = new AclList();
-    	$acl->setDefaultAction(Phalcon\Acl::DENY);
-    	
-    	foreach()
-    }
-
-    
+    }    
 }

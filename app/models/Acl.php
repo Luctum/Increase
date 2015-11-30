@@ -19,13 +19,13 @@ class Acl extends \Phalcon\Mvc\Model
      *
      * @var integer
      */
-    protected $role;
+    protected $idRole;
 
     /**
      *
      * @var integer
      */
-    protected $controller;
+    protected $idController;
 
     /**
      * Method to set the value of field code
@@ -59,9 +59,9 @@ class Acl extends \Phalcon\Mvc\Model
      * @param integer $poids
      * @return $this
      */
-    public function setRole($role)
+    public function setIdRole($idRole)
     {
-        $this->role = $role;
+        $this->idRole = $idRole;
 
         return $this;
     }
@@ -72,9 +72,9 @@ class Acl extends \Phalcon\Mvc\Model
      * @param integer $avancement
      * @return $this
      */
-    public function setController($controller)
+    public function setIdController($controller)
     {
-        $this->controller = $controller;
+        $this->idController = $controller;
 
         return $this;
     }
@@ -104,9 +104,9 @@ class Acl extends \Phalcon\Mvc\Model
      *
      * @return integer
      */
-    public function getRole()
+    public function getIdRole()
     {
-        return $this->role;
+        return $this->idRole;
     }
 
     /**
@@ -114,9 +114,9 @@ class Acl extends \Phalcon\Mvc\Model
      *
      * @return integer
      */
-    public function getController()
+    public function getIdController()
     {
-        return $this->controller;
+        return $this->idController;
     }
 
     /**
@@ -124,9 +124,8 @@ class Acl extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->hasMany('code', 'Tache', 'codeUseCase', array('alias' => 'Taches'));
-        $this->belongsTo('idProjet', 'Projet', 'id', array('alias' => 'Projet'));
-        $this->belongsTo('idDev', 'User', 'id', array('alias' => 'User'));
+        $this->belongsTo('idRole', 'Role', 'id', array('alias' => 'Role'));
+        $this->belongsTo('idController', 'Controller', 'id', array('alias' => 'Controller'));
     }
 
     /**
@@ -136,14 +135,14 @@ class Acl extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'usecase';
+        return 'acl';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Usecase[]
+     * @return Acl[]
      */
     public static function find($parameters = null)
     {
@@ -154,14 +153,10 @@ class Acl extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Usecase
+     * @return Acl
      */
     public static function findFirst($parameters = null)
     {
         return parent::findFirst($parameters);
-    }
-
-    public function toString(){
-        return $this->nom."(".$this->avancement.")";
     }
 }

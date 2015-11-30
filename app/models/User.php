@@ -156,6 +156,7 @@ class User extends \Phalcon\Mvc\Model
         $this->hasMany('id', 'Message', 'idUser', array('alias' => 'Messages'));
         $this->hasMany('id', 'Projet', 'idClient', array('alias' => 'Projets'));
         $this->hasMany('id', 'Usecase', 'idDev', array('alias' => 'Usecases'));
+        $this->belongsTo('idRole', 'Role', 'id', array('alias' => 'Role'));
     }
 
     public function toString(){

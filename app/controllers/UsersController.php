@@ -1,5 +1,7 @@
 <?php
 
+use Phalcon\Acl\Adapter\Memory as AclList;
+
 class UsersController extends ControllerBase
 {
     protected $model;
@@ -36,6 +38,15 @@ class UsersController extends ControllerBase
     		}
     	}
     }
+    
+    public function loadAclAction($userRole) {
+    	$acl = new AclList();
+    	$acl->setDefaultAction(Phalcon\Acl::DENY);
+    	
+    	$acl->addRole($userRole);
+    	
+	}
+
  
 
 }
