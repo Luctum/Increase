@@ -102,6 +102,20 @@ class ProjetsController extends \ControllerBase
     public function usecasesAction($id = null)
     {
         $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
+        $taches = Tache::find();
+        $usecases = Usecase::find(array(
+            "idProjet = '$id'",
+            "order" => "poids DESC"
+        ));
+
+        $this->view->setVar("usecases", $usecases);
+        $this->view->setVar("taches", $taches);
+
+    }
+
+    public function contributorsAction($id = null)
+    {
+        $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
         $contributor = [];
 
         $usecases = Usecase::find("idProjet = $id");
@@ -112,16 +126,9 @@ class ProjetsController extends \ControllerBase
 
         $contributor = array_unique($contributor, SORT_REGULAR);
 
-        $taches = Tache::find();
         $this->view->setVar("contributors", $contributor);
         $this->view->setVar("usecases", $usecases);
-        $this->view->setVar("taches", $taches);
-    }
 
-    public function contributorsAction($id = null)
-    {
-        $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
-        echo "Pas encore implémenté";
     }
 
     public function statsAction($id = null)

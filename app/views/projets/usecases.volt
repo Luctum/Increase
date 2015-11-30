@@ -1,41 +1,44 @@
-
-{% for c in contributors %}
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <img src="{{ c.getImage() }}" id="avatar">  </img> {{ c.getIdentite() }}
-        </div>
-
-        {% for u in usecases %}
-            <div class="list-group">
-                {% if c == u.getUser() %}
-
-                    <button class="list-group-item"><h5 class="list-group-item-heading">{{ u.toString() }}</h5></button>
-                    <div class="decale" id="borderNone">
-                        <p class="list-group-item-text">
-                            {% for t in taches %}
-
-                            {% if t.getCodeUseCase() == u.getCode() %}
-
-                        <div class="list-group-item">
-                            {{ t.toString() }}
-                        </div>
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-striped progress-bar-info" role="progressbar"
+<table class="table table-bordered">
+    <tr>
+        <td>Nom</td>
+        <td>Poid</td>
+        <td>Avancement</td>
+        <td>Développeur</td>
+    </tr>
+    {% for u in usecases %}
+        <tr class="active">
+            <td>{{ u.toString() }}</td>
+            <td>{{ u.getPoids() }}</td>
+            <td>
+                <div class="progress" style="height:20px; margin: 0;">
+                    {% if u.getAvancement() == 0 %}0%{% endif %}
+                    <div class="progress-bar" role="progressbar" aria-valuenow="{{ u.getAvancement() }}"
+                         aria-valuemin="0" aria-valuemax="100" style="width: {{ u.getAvancement() }}%;">
+                        {{ u.getAvancement() }}%
+                    </div>
+                </div>
+            </td>
+            <td>{{ u.getUser().getIdentite() }}</td>
+        </tr>
+        {% for t in taches %}
+            {% if t.getCodeUseCase() is u.getCode() %}
+                <tr class="decale">
+                    <td style="font-size: 12px;">
+                        <li><i>{{ t.toString() }}</i></li>
+                    </td>
+                    <td></td>
+                    <td>
+                        <div class="progress" style="height:20px; margin: 0;">
+                            <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar"
                                  aria-valuenow="{{ t.getAvancement() }}"
-                                 aria-valuemin="0" aria-valuemax="100" style="width: {{ t.getAvancement() }}%">
+                                 aria-valuemin="0" aria-valuemax="100" style="width: {{ t.getAvancement() }}%;">
+                                {{ t.getAvancement() }}%
                             </div>
                         </div>
+                    </td>
+                </tr>
+            {% endif %}
 
-
-                        {% endif %}
-
-                        {% endfor %}
-                        </p>
-                    </div>
-
-                {% endif %}
-            </div>
         {% endfor %}
-
-    </div>
-{% endfor %}
+    {% endfor %}
+</table>
