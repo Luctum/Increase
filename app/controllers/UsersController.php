@@ -1,6 +1,8 @@
 <?php
 
 use Phalcon\Acl\Adapter\Memory as AclList;
+use Phalcon\Acl\Role;
+use Phalcon\Acl\Resource;
 
 class UsersController extends ControllerBase
 {
@@ -39,11 +41,24 @@ class UsersController extends ControllerBase
     	}
     }
     
-    public function loadAclAction($userRole) {
+    public function loadAclAction() {
     	$acl = new AclList();
     	$acl->setDefaultAction(Phalcon\Acl::DENY);
     	
-    	$acl->addRole($userRole);
+    	$roles = TypeUser::find();
+    	foreach ($roles as $role) {
+    		$acl->addRole(new Role($role->getLibelle()));
+    	}
+    	
+    	$ressources = Ressource::find();
+    	$operationsBdd = Operation::find();
+    	foreach ($operationsBdd as $operation) {
+    		$operations[] = $operation->getOperation();
+    	}
+    	foreach ($ressources as $ressource) {
+    		$acl->addResource(new Resource($ressource->getLibelle()), $operations);
+    	}
+    	
     	
 	}
 

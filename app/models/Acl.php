@@ -5,32 +5,32 @@ class Acl extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var string
+     * @var integer
      */
     protected $id;
 
     /**
      *
-     * @var string
+     * @var integer
      */
-    protected $operation;
+    protected $idOperation;
 
     /**
      *
      * @var integer
      */
-    protected $idRole;
+    protected $idTypeUser;
 
     /**
      *
      * @var integer
      */
-    protected $idController;
+    protected $idRessource;
 
     /**
-     * Method to set the value of field code
+     * Method to set the value of field id
      *
-     * @param string $code
+     * @param integer $id
      * @return $this
      */
     public function setId($id)
@@ -41,48 +41,48 @@ class Acl extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Method to set the value of field nom
+     * Method to set the value of field idOperation
      *
-     * @param string $nom
+     * @param integer $idOperation
      * @return $this
      */
-    public function setOperation($operation)
+    public function setIdOperation($idOperation)
     {
-        $this->operation = $operation;
+        $this->idOperation = $idOperation;
 
         return $this;
     }
 
     /**
-     * Method to set the value of field poids
+     * Method to set the value of field idTypeUser
      *
-     * @param integer $poids
+     * @param integer $idTypeUser
      * @return $this
      */
-    public function setIdRole($idRole)
+    public function setIdTypeUser($idTypeUser)
     {
-        $this->idRole = $idRole;
+        $this->idTypeUser = $idTypeUser;
 
         return $this;
     }
 
     /**
-     * Method to set the value of field avancement
+     * Method to set the value of field idRessource
      *
-     * @param integer $avancement
+     * @param integer $idRessource
      * @return $this
      */
-    public function setIdController($controller)
+    public function setIdRessource($idRessource)
     {
-        $this->idController = $controller;
+        $this->idRessource = $idRessource;
 
         return $this;
     }
 
     /**
-     * Returns the value of field code
+     * Returns the value of field id
      *
-     * @return string
+     * @return integer
      */
     public function getId()
     {
@@ -90,33 +90,33 @@ class Acl extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Returns the value of field nom
-     *
-     * @return string
-     */
-    public function getOperation()
-    {
-        return $this->operation;
-    }
-
-    /**
-     * Returns the value of field poids
+     * Returns the value of field idOperation
      *
      * @return integer
      */
-    public function getIdRole()
+    public function getIdOperation()
     {
-        return $this->idRole;
+        return $this->idOperation;
     }
 
     /**
-     * Returns the value of field avancement
+     * Returns the value of field idTypeUser
      *
      * @return integer
      */
-    public function getIdController()
+    public function getIdTypeUser()
     {
-        return $this->idController;
+        return $this->idTypeUser;
+    }
+
+    /**
+     * Returns the value of field idRessource
+     *
+     * @return integer
+     */
+    public function getIdRessource()
+    {
+        return $this->idRessource;
     }
 
     /**
@@ -124,8 +124,9 @@ class Acl extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->belongsTo('idRole', 'Role', 'id', array('alias' => 'Role'));
-        $this->belongsTo('idController', 'Controller', 'id', array('alias' => 'Controller'));
+        $this->belongsTo('idTypeUser', 'TypeUser', 'id', array('alias' => 'TypeUser'));
+        $this->belongsTo('idRessource', 'Ressource', 'id', array('alias' => 'Ressource'));
+        $this->belongsTo('idOperation', 'Operation', 'id', array('alias' => 'Operation'));
     }
 
     /**

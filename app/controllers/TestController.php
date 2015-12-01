@@ -9,8 +9,13 @@ class TestController extends \Phalcon\Mvc\Controller
 	
     public function indexAction()
     {
-    	$bootstrap = $this->jquery->bootstrap();
-    	echo $bootstrap->htmlAlert("alert1","Le nom d'utilisateur ou le mot de passe est incorrecte.");
+    	$operationsBdd = Operation::find();
+    	foreach ($operationsBdd as $operation) {
+    		$operations[] = $operation->getOperation();
+    	}
+    	foreach ($operations as $operation) {
+    		echo $operation;
+    	}
     }
 
     public function initialize() {

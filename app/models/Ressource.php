@@ -1,6 +1,6 @@
 <?php
 
-class Role extends \Phalcon\Mvc\Model
+class Ressource extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -29,9 +29,9 @@ class Role extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Method to set the value of field objet
+     * Method to set the value of field libelle
      *
-     * @param string $objet
+     * @param string $libelle
      * @return $this
      */
     public function setLibelle($libelle)
@@ -52,7 +52,7 @@ class Role extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Returns the value of field objet
+     * Returns the value of field libelle
      *
      * @return string
      */
@@ -66,8 +66,7 @@ class Role extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->hasMany('id', 'Acl', 'idRole', array('alias' => 'Acl'));
-        $this->hasMany('id', 'User', 'idRole', array('alias' => 'Users'));
+        $this->hasMany('id', 'Acl', 'idRessource', array('alias' => 'Acl'));
     }
 
     /**
@@ -77,14 +76,14 @@ class Role extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'role';
+        return 'ressource';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Role[]
+     * @return Ressource[]
      */
     public static function find($parameters = null)
     {
@@ -95,7 +94,7 @@ class Role extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Role
+     * @return Ressource
      */
     public static function findFirst($parameters = null)
     {

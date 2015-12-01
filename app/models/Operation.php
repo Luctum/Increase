@@ -1,6 +1,6 @@
 <?php
 
-class Controller extends \Phalcon\Mvc\Model
+class Operation extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -13,7 +13,7 @@ class Controller extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    protected $libelle;
+    protected $operation;
 
     /**
      * Method to set the value of field id
@@ -29,14 +29,14 @@ class Controller extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Method to set the value of field objet
+     * Method to set the value of field operation
      *
-     * @param string $objet
+     * @param string $operation
      * @return $this
      */
-    public function setLibelle($libelle)
+    public function setOperation($operation)
     {
-        $this->libelle = $libelle;
+        $this->operation = $operation;
 
         return $this;
     }
@@ -52,13 +52,13 @@ class Controller extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Returns the value of field objet
+     * Returns the value of field operation
      *
      * @return string
      */
-    public function getLibelle()
+    public function getOperation()
     {
-        return $this->libelle;
+        return $this->operation;
     }
     
     /**
@@ -76,14 +76,14 @@ class Controller extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'controller';
+        return 'operation';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Controller[]
+     * @return Operation[]
      */
     public static function find($parameters = null)
     {
@@ -94,7 +94,7 @@ class Controller extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Role
+     * @return Operation
      */
     public static function findFirst($parameters = null)
     {
@@ -102,7 +102,7 @@ class Controller extends \Phalcon\Mvc\Model
     }
     
     public function toString() {
-    	return $this->libelle;
+    	return $this->operation;
     }
 
 }
