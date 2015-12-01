@@ -285,9 +285,9 @@ class Projet extends \Phalcon\Mvc\Model
 
             }
         }
-        $rTotal = round($rTotal/$total);
-        $gTotal = round($gTotal/$total);
-        $bTotal = round($bTotal/$total);
+        $rTotal = round($rTotal / $total);
+        $gTotal = round($gTotal / $total);
+        $bTotal = round($bTotal / $total);
 
         $tabColor = ["r" => $rTotal, "g" => $gTotal, "b" => $bTotal];
         return $tabColor;
@@ -324,4 +324,5 @@ class Projet extends \Phalcon\Mvc\Model
         }
         return $im;
     }
+
 }

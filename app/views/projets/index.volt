@@ -1,18 +1,31 @@
 <div class="row">
     {% for p in projets %}
 
-        <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-                <img src="{{ p.getImage() }}" alt="chaton">
+        <div class="col-sm-6 col-md-3">
+            <div class="imgRes">
+                <img src="{{ p.getImage() }}">
+            </div>
 
+            <div class="thumbnail">
                 <div class="caption">
                     <h3><a href="{{ url("Projets/read/"~p.getId()) }}">{{ p.toString() }}</a></h3>
 
-                    <p>{{ p.getDescription() }}</p>
+                    <div id="contentCaption">
+                        <p>{{ p.getDescription() }}</p>
+                    </div>
+                    <hr>
+                    <p>Client : {{ p.getClient().getIdentite() }}</p>
 
-                    <p><a href=" #" class="btn btn-default" role="button">Button</a>
-                        <a href="#" class="btn btn-danger" role="button">Button</a>
-                    </p>
+                    <div id="grp-button">
+                        <p><a href="#" class="btn btn-xs btn-default" role="button"
+                              style="border-radius: 50%;">
+                                <span class="glyphicon glyphicon-pencil"></span></a>
+
+                            <a href="{{ url("Projets/delete") }}" class="btn btn-xs btn-default" role="button"
+                               style="border-radius: 50%;">
+                                <span class="glyphicon glyphicon-remove-sign"></span></a>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

@@ -16,7 +16,7 @@ class ProjetsController extends \ControllerBase
         $this->controller = "Projets";
     }
 
-    public function indexAction()
+    public function indexAction($message = null)
     {
         $projets = Projet::find();
         $this->view->setVar("projets", $projets);
@@ -38,22 +38,13 @@ class ProjetsController extends \ControllerBase
             //Sinon si la couleur est trop sombre change l'écriture en blanc pour qu'elle sois visible
         } elseif ($color["r"] < 120 || $color["g"] < 120 || $color["b"] < 120) {
             $colorTexte = "white";
-            $color["r"] += 20;
-            $color["g"] += 20;
-            $color["b"] += 20;
+            $color["r"] += 70;
+            $color["g"] += 70;
+            $color["b"] += 70;
         }
 
-        //Calcul le taux de finition du projet en fonction du nombre d'usecases total et du taux d'avancement sur chaque usecases.
-        $countUsecases = count($usecases);
-        $totalAvancementFini = $countUsecases * 100;
-        $totalAvancementReel = 0;
+        $avancementReel = $this->avancementReel($usecases);
 
-        foreach ($usecases as $u) {
-            $totalAvancementReel = $totalAvancementReel + $u->getAvancement();
-        }
-
-        $avancementReel = ($totalAvancementReel / $totalAvancementFini) * 100;
-        $avancementReel = number_format($avancementReel, 1);
 
         $this->jquery->postFormOnClick("#submitMsg", "Messages/update", "#newMsgForm");
 
@@ -83,9 +74,7 @@ class ProjetsController extends \ControllerBase
     {
         $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
         $messages = Message::find("idProjet = $id");
-        $url = new Url();
-        $btnSubmit = $this->jquery->bootstrap()->htmlButton("submitMsg", "Envoyer");
-        $this->jquery->postFormOn("click", "submitMsg", $url->get("Messages/update"), "newMsgForm", "#newMsg");
+        $this->jquery->postFormOnClick("#submitMsg", "Messages/update", "newMsgForm", null, array("jsCallback" => $this->jquery->getDeferred("Projets/messages/$id", "#contentProjet")));
         $this->jquery->compile($this->view);
 
         $this->view->setVar("msg", $messages);
@@ -117,7 +106,6 @@ class ProjetsController extends \ControllerBase
 
         $this->view->setVar("usecases", $usecases);
         $this->view->setVar("taches", $taches);
-
     }
 
     public function contributorsAction($id = null)
@@ -136,7 +124,23 @@ class ProjetsController extends \ControllerBase
         $this->view->setVar("contributors", $contributor);
         $this->view->setVar("usecases", $usecases);
 
+
     }
 
+    //Calcule le taux d'avancement total d'un projet
+    public function avancementReel($usecases)
+    {
+        //Calcul le taux de finition du projet en fonction du nombre d'usecases total et du taux d'avancement sur chaque usecases.
+        $countUsecases = count($usecases);
+        $totalAvancementFini = $countUsecases * 100;
+        $totalAvancementReel = 0;
+
+        foreach ($usecases as $u) {
+            $totalAvancementReel = $totalAvancementReel + $u->getAvancement();
+        }
+
+        $avancementReel = ($totalAvancementReel / $totalAvancementFini) * 100;
+        return number_format($avancementReel, 1);
+    }
 
 }

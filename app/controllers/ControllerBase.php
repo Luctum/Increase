@@ -94,7 +94,7 @@ class ControllerBase extends Controller
 
     public function deleteAction($id = null)
     {
-        $object = call_user_func($this->model . '::findFirst', "id = $id");
+        $object = call_user_func($this->model . '::find', "id = $id");
         $object->delete();
         $this->response->redirect("Index/index");
     }
@@ -180,5 +180,6 @@ class ControllerBase extends Controller
     {
         $this->_showMessage($message, "info", $timerInterval, $dismissable);
     }
+
 
 }

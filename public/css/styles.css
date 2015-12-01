@@ -78,7 +78,7 @@ body {
     .sidebar-nav .navbar .navbar-collapse {
         padding: 0;
         max-height: none;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.15);
     }
 
     .sidebar-nav .navbar ul {
@@ -105,8 +105,41 @@ body {
     margin-right: 2%;
 }
 
+#grp-button {
+    position: absolute;
+    right: 5px;
+    top: -10px;
+}
+
+.thumbnail {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+    transition: all 0.2s ease-in;
+}
+
+.thumbnail:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.13);
+}
+
 #borderNone {
     border: 0;
+}
+
+#contentCaption {
+    height: 110px;
+    padding-bottom: 10px;
+    overflow: auto;
+    margin-bottom: 10px;
+}
+
+.imgRes img {
+    position: absolute;
+    z-index: 99;
+    height: 45px;
+    width: 45px;
+    left: 3px;
+    top: -15px;
+    border-radius: 50%;
+    border: 1px #cacaca solid;
 }
 
 /* Reproduce callout from bootstrap doc*/
@@ -182,4 +215,6 @@ body {
 .bs-callout-info h4 {
     color: #5bc0de;
 }
+
+
 
