@@ -37,6 +37,17 @@ class ProjetsController extends \ControllerBase
 
     }
 
+    public function updateAction($id = null){
+        parent::updateAction();
+
+        //Retrouve l'id du dernier projet créer (En theorie celui qui viens d'être créé)
+        $projet = Projet::findFirst(array(
+            "order" => "id DESC"
+        ));
+        $idproj = $projet->getId();
+        $this->response->redirect("Projets/read/$idproj");
+    }
+
     public function readAction($id = null)
     {
         $projet = Projet::findFirst($id);

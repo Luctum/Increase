@@ -1,4 +1,4 @@
-<form name="frmAjout">
+<form name="frmAjout" method="post" action="update">
     <div class="form-group">
         <label>Nom du Projet</label>
         <input type="text" class="form-control" id="nom" name="nom" placeholder="MonProjet">
@@ -22,4 +22,6 @@
         <label>Image du projet en png</label>
         <input type="text" class="form-control" name="image" placeholder="http://www.example.com/imageduprojet.png">
     </div>
+    <hr>
+    <input type="submit" class="btn btn-primary" value="Envoyer">
 </form>
