@@ -29,7 +29,8 @@
                 </div>
             </div>
         </div>
-
     {% endfor %}
 </div>
-
+{{ q['btFrm'] }}
+{{ q['modal'] }}
+{{ script_foot }}

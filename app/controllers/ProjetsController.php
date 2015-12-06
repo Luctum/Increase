@@ -20,6 +20,21 @@ class ProjetsController extends \ControllerBase
     {
         $projets = Projet::find();
         $this->view->setVar("projets", $projets);
+
+
+        $dialog=$this->jquery->bootstrap()->htmlModal("modal","Ajouter un nouveau projet","test");
+        $buttonFrm=$this->jquery->bootstrap()->htmlButton("btFrm","Nouveau");
+        $dialog->addOkayButton("Ajouter");
+        $this->jquery->postFormOnClick("#modal-Ajouter", "Projets/update", "frmAjout", null, array("jsCallback" => $this->jquery->getDeferred("Projets/index", ".content)")));
+        $dialog->addCancelButton();
+        $clients = User::find();
+        $dialog->renderContent($this->view,"projets","frm",array("clients"=>$clients));
+
+        $buttonFrm->onClick($dialog->jsShow());
+
+        $this->jquery->compile($this->view);
+
+
     }
 
     public function readAction($id = null)
@@ -44,9 +59,6 @@ class ProjetsController extends \ControllerBase
         }
 
         $avancementReel = $this->avancementReel($usecases);
-
-
-        $this->jquery->postFormOnClick("#submitMsg", "Messages/update", "#newMsgForm");
 
         //Passage des différentes variables
         $this->view->setVar("colorTexte", $colorTexte);

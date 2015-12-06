@@ -22,9 +22,9 @@
         </tr>
         {% for t in taches %}
             {% if t.getCodeUseCase() is u.getCode() %}
-                <tr class="decale">
+                <tr class="decale" style="text-indent: 5%;">
                     <td style="font-size: 12px;">
-                        <li><i>{{ t.toString() }}</i></li>
+                        <i>{{ t.toString() }}</i>
                     </td>
                     <td></td>
                     <td>
