@@ -45,7 +45,6 @@ class ProjetsController extends \ControllerBase
 
     public function readAction($id = null)
     {
-        $url = new Url();
         $projet = Projet::findFirst($id);
         $usecases = Usecase::find("idProjet = $id");
         $messages = Message::find("idProjet = $id");

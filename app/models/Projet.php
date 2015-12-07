@@ -309,6 +309,7 @@ class Projet extends \Phalcon\Mvc\Model
         if (!in_array($type, $allowedTypes)) {
             return false;
         }
+        $im = null;
         switch ($type) {
             case 1 :
                 $im = imageCreateFromGif($img);

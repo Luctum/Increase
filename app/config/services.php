@@ -95,7 +95,6 @@ $di->set('session', function () {
 $di->set("jquery", function () {
     $jquery = new JsUtils(array("driver" => "Jquery"));
     $jquery->bootstrap(new Bootstrap());
-    //$jquery->ui(new Ajax\JqueryUI());//optional for JQuery UI
     return $jquery;
 });
 
