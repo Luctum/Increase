@@ -8,7 +8,7 @@
 
             <div class="thumbnail">
                 <div class="caption">
-                    <h3><a href="{{ url("Projets/read/"~p.getId()) }}">{{ p.toString() }}</a></h3>
+                    <h4 style="margin-top: 20px;"><a href="{{ url("Projets/read/"~p.getId()) }}">{{ p.toString() }}</a></h4>
 
                     <div id="contentCaption">
                         <p>{{ p.getDescription() }}</p>

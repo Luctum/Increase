@@ -113,23 +113,20 @@ class ProjetsController extends \ControllerBase
         $usecases = Usecase::find("idProjet = $id");
         $messages = Message::find("idProjet = $id");
 
-
-        $this->view->setVar("projet", $projet);
-        $this->view->setVar("messages", $messages);
-        $this->view->setVar("usecases", $usecases);
-
-        $this->jquery->exec("$('#description').editable()", true);
-        $this->jquery->exec("$('#dateLancement').editable()", true);
-        $this->jquery->exec("$('#dateFinPrevue').editable()", true);
-
+         //Créer un array en javascript contenant la liste des utilisateurs pour la liste des clients sur Xeditable
         $client = '[';
-
+        $i = 0;
         foreach (User::find() as $c) {
-            $client .= '{value: ' . $c->getId() . ', text: "' . $c->getIdentite() . '"}';
+            $i += 1;
+            if($id != 1){
+                $client .=',';
+            }
+            $client .= '{value: ' . $c->getId() . ', text:"' . $c->getIdentite() . '"}';
         }
 
         $client .= ']';
 
+        //Select Xeditable
         $this->jquery->exec("$('#idClient').editable({
                                 type: 'select',
                                 pk: $id,
@@ -137,6 +134,16 @@ class ProjetsController extends \ControllerBase
                                 source: $client
 
         })", true);
+
+        //Xeditable
+        $this->jquery->exec("$('#description').editable()", true);
+        $this->jquery->exec("$('#dateLancement').editable()", true);
+        $this->jquery->exec("$('#dateFinPrevue').editable()", true);
+
+        //Passage des variables à la vue
+        $this->view->setVar("projet", $projet);
+        $this->view->setVar("messages", $messages);
+        $this->view->setVar("usecases", $usecases);
 
         //Compilation de Jquery dans la vue
         $this->jquery->compile($this->view);
