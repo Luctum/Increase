@@ -34,6 +34,7 @@ class ProjetsController extends \ControllerBase
 
     public function updateAction()
     {
+        parent::updateAction();
         //Retrouve l'id du dernier projet créer (En theorie celui qui vient d'être créé)
         $projet = Projet::findFirst(array(
             "order" => "id DESC"
@@ -126,7 +127,6 @@ class ProjetsController extends \ControllerBase
 
         foreach (User::find() as $c) {
             $client .= '{value: ' . $c->getId() . ', text: "' . $c->getIdentite() . '"}';
-
         }
 
         $client .= ']';
