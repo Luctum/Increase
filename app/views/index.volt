@@ -35,7 +35,7 @@
                             <li><a href="#">My Profile</a></li>
                             <li><a href="#">My Projects</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="{{ url.get(controller~"Index/logout") }}">Sign out</a></li>
+                            <li><a href="{{ url.get(controller~"/logout") }}">Sign out</a></li>
                         </ul>
                     </li>
                 {% else %}

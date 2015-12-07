@@ -32,33 +32,30 @@ class UsersController extends ControllerBase
     		if($userPseudo != NULL && password_verify($_POST['password'], $userPseudo->getPassword())) {
     			$this->session->set("user", $userPseudo);
     			$this->response->redirect("Index/index");
+    			$this->loadAclAction($userPseudo->getRole());
     		} else if($userMail != NULL && password_verify($_POST['password'], $userMail->getPassword())) {
     			$this->session->set("user", $userMail);
     			$this->response->redirect("Index/index");
+    			$this->loadAclAction($userMail->getRole());
     		} else {
     			echo $bootstrap->htmlAlert("alert1","L'identifiant ou le mot de passe est incorrecte.");
     		}
     	}
     }
     
-    public function loadAclAction() {
+    public function loadAclAction($typeUser) {
     	$acl = new AclList();
     	$acl->setDefaultAction(Phalcon\Acl::DENY);
+    	$roleBdd = TypeUser::findFirst("id = ".$typeUser);
     	
-    	$roles = TypeUser::find();
-    	foreach ($roles as $role) {
+    	$aclsBdd = Acl::find("idTypeUser = ".$typeUser);
+    	foreach ($aclsBdd as $aclBdd) {
+    		$role = TypeUser::findFirst("id = ".$aclBdd->getIdTypeUser());
+    		$ressource = Ressource::findFirst("id = ".$aclBdd->getIdRessource());
+    		$operation = Operation::findFirst("id = ".$aclBdd->getIdOperation());
     		$acl->addRole(new Role($role->getLibelle()));
+    		$acl->addResource(new Resource($ressource->getLibelle(), $operation->getOperation()));
     	}
-    	
-    	$ressources = Ressource::find();
-    	$operationsBdd = Operation::find();
-    	foreach ($operationsBdd as $operation) {
-    		$operations[] = $operation->getOperation();
-    	}
-    	foreach ($ressources as $ressource) {
-    		$acl->addResource(new Resource($ressource->getLibelle()), $operations);
-    	}
-    	
     	
 	}
 

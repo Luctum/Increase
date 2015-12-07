@@ -47,14 +47,14 @@ class ControllerBase extends Controller{
 
     public function asAdminAction(){
         $user = new User();
-        $user->findFirst("role = '0' ");
+        $user->findFirst("idTypeUser = '0' ");
         $this->session->set("user", $user);
         $this->response->redirect("Index/index");
     }
 
     public function asUserAction(){
         $user = new User();
-        $user->findFirst("role = '2' ");
+        $user->findFirst("idTypeUser = '2' ");
         $this->session->set("user", $user);
         $this->response->redirect("Index/index");
     }
