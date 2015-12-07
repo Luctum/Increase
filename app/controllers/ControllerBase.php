@@ -90,7 +90,17 @@ class ControllerBase extends Controller
         }
     }
 
-    /////////////////////////////////////
+    //PErmet l'édition d'un seul champ à la fois
+    public function soloUpdateAction()
+    {
+        //Créer la fonction variable 'set' en fonction du name en POST
+        $func = 'set' . ucfirst($_POST['name']);
+        $projet = call_user_func($this->model . '::findFirst', $_POST['pk']);
+        $projet->$func($_POST['value']);
+        $projet->save();
+
+    }
+
 
     public function deleteAction($id = null)
     {

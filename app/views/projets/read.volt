@@ -2,11 +2,13 @@
     {{ q['progress'] }}
 </div>
 <div class="alert alert-custom" style="background-color: rgb({{ color["r"] }},{{ color["g"] }},{{ color["b"] }});">
-    <img class="logo-projet" src="{{ projet.getImage() }}">
+    <img class="logo-projet" src="{{ projet.getImage() }}" id="image"
+         data-url="{{ url("Projets/soloUpdate") }} " data-type="text" data-pk="{{ projet.getId() }}"
+         data-title="Url de l'image">
     <span class="h" style="color: {{ colorTexte }};">Projet : <a
                 id="nom"
                 data-url="{{ url("Projets/soloUpdate") }} " data-type="text" data-pk="{{ projet.getId() }}"
-                data-title="Enter username">{{ projet.getNom() }}</a></span>
+                data-title="Nom du projet">{{ projet.getNom() }}</a></span>
 </div>
 <div class="row">
     <div class="col-sm-3">

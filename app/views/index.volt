@@ -2,7 +2,8 @@
 <html>
 <head>
     <title>Increase</title>
-    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
     {{ stylesheet_link("css/bootstrap.min.css") }}
     {{ javascript_include('js/bootstrap.min.js') }}
     {{ stylesheet_link("css/styles.css") }}

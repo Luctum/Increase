@@ -30,34 +30,16 @@ class ProjetsController extends \ControllerBase
         $buttonFrm->onClick($dialog->jsShow());
 
         $this->jquery->compile($this->view);
-
-
     }
 
-    public function updateAction($id = null)
+    public function updateAction()
     {
-        if ($id = null) {
-            //Retrouve l'id du dernier projet créer (En theorie celui qui vient d'être créé)
-            $projet = Projet::findFirst(array(
-                "order" => "id DESC"
-            ));
-            $idproj = $projet->getId();
-            $this->response->redirect("Projets/read/$idproj");
-        }
-    }
-
-    public function soloUpdateAction()
-    {
-        //Créer la fonction variable 'set' en fonction du name en POST
-        $func = 'set' . ucfirst($_POST['name']);
-        $projet = Projet::findFirst($_POST['pk']);
-        $projet->$func($_POST['value']);
-        $projet->save();
-
-        /*$value = $_POST['value'];
-        $pk = $_POST['pk'];
-        $name = $_POST['name'];
-        $this->modelsManager->createQuery("UPDATE Projet SET $name = '$value' WHERE id = $pk")->execute();*/
+        //Retrouve l'id du dernier projet créer (En theorie celui qui vient d'être créé)
+        $projet = Projet::findFirst(array(
+            "order" => "id DESC"
+        ));
+        $idproj = $projet->getId();
+        $this->response->redirect("Projets/read/$idproj");
     }
 
     public function readAction($id = null)
@@ -103,7 +85,9 @@ class ProjetsController extends \ControllerBase
         $this->jquery->getOnClick("#menu3", "Projets/usecases/$id", "#contentProjet");
         $this->jquery->getOnClick("#menu5", "Projets/messages/$id", "#contentProjet");
 
+        //Xeditable
         $this->jquery->exec("$('#nom').editable()", true);
+        $this->jquery->exec("$('#image').editable()", true);
 
         //Compilation de Jquery dans la vue
         $this->jquery->compile($this->view);
@@ -129,10 +113,37 @@ class ProjetsController extends \ControllerBase
         $usecases = Usecase::find("idProjet = $id");
         $messages = Message::find("idProjet = $id");
 
+
         $this->view->setVar("projet", $projet);
         $this->view->setVar("messages", $messages);
         $this->view->setVar("usecases", $usecases);
+
+        $this->jquery->exec("$('#description').editable()", true);
+        $this->jquery->exec("$('#dateLancement').editable()", true);
+        $this->jquery->exec("$('#dateFinPrevue').editable()", true);
+
+        $client = '[';
+
+        foreach (User::find() as $c) {
+            $client .= '{value: ' . $c->getId() . ', text: "' . $c->getIdentite() . '"}';
+
+        }
+
+        $client .= ']';
+
+        $this->jquery->exec("$('#idClient').editable({
+                                type: 'select',
+                                pk: $id,
+                                title: 'Enter username',
+                                source: $client
+
+        })", true);
+
+        //Compilation de Jquery dans la vue
+        $this->jquery->compile($this->view);
+
     }
+
 
     public function usecasesAction($id = null)
     {
@@ -180,6 +191,7 @@ class ProjetsController extends \ControllerBase
 
         $avancementReel = ($totalAvancementReel / $totalAvancementFini) * 100;
         return number_format($avancementReel, 1);
+
     }
 
 }
