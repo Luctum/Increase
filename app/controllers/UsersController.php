@@ -58,6 +58,10 @@ class UsersController extends ControllerBase
     	}
     	
 	}
+	
+	public function readAction($id = NULL) {
+		
+	}
 
  
 
