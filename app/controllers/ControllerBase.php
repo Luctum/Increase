@@ -96,7 +96,6 @@ class ControllerBase extends Controller
     {
         $object = call_user_func($this->model . '::find', "id = $id");
         $object->delete();
-        $this->response->redirect("Index/index");
     }
 
     public function asAdminAction()

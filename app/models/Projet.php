@@ -259,6 +259,7 @@ class Projet extends \Phalcon\Mvc\Model
         return "Client : " . $this->client->toString() . " <br/> Desciption : " . $this->description;
     }
 
+
     //R�cup�re la couleur dominante de l'image du profil
     public function getDominantColor()
     {
@@ -324,5 +325,6 @@ class Projet extends \Phalcon\Mvc\Model
         }
         return $im;
     }
+
 
 }

@@ -21,14 +21,11 @@ class ProjetsController extends \ControllerBase
         $projets = Projet::find();
         $this->view->setVar("projets", $projets);
 
-
-        $dialog=$this->jquery->bootstrap()->htmlModal("modal","Ajouter un nouveau projet","test");
-        $buttonFrm=$this->jquery->bootstrap()->htmlButton("btFrm","Nouveau");
-        $dialog->addOkayButton("Ajouter");
-        $this->jquery->postFormOnClick("#modal-Ajouter", "Projets/update", "frmAjout", null, array("jsCallback" => $this->jquery->getDeferred("Projets/index", ".content)")));
+        $dialog = $this->jquery->bootstrap()->htmlModal("modal", "Ajouter un nouveau projet", "test");
+        $buttonFrm = $this->jquery->bootstrap()->htmlButton("btFrm", "Nouveau");
         $dialog->addCancelButton();
         $clients = User::find();
-        $dialog->renderContent($this->view,"projets","frm",array("clients"=>$clients));
+        $dialog->renderContent($this->view, "projets", "frm", array("clients" => $clients));
 
         $buttonFrm->onClick($dialog->jsShow());
 
@@ -37,25 +34,42 @@ class ProjetsController extends \ControllerBase
 
     }
 
-    public function updateAction($id = null){
-        parent::updateAction();
+    public function updateAction($id = null)
+    {
+        if ($id = null) {
+            //Retrouve l'id du dernier projet créer (En theorie celui qui vient d'être créé)
+            $projet = Projet::findFirst(array(
+                "order" => "id DESC"
+            ));
+            $idproj = $projet->getId();
+            $this->response->redirect("Projets/read/$idproj");
+        }
+    }
 
-        //Retrouve l'id du dernier projet créer (En theorie celui qui viens d'être créé)
-        $projet = Projet::findFirst(array(
-            "order" => "id DESC"
-        ));
-        $idproj = $projet->getId();
-        $this->response->redirect("Projets/read/$idproj");
+    public function soloUpdateAction()
+    {
+        //Créer la fonction variable 'set' en fonction du name en POST
+        $func = 'set' . ucfirst($_POST['name']);
+        $projet = Projet::findFirst($_POST['pk']);
+        $projet->$func($_POST['value']);
+        $projet->save();
+
+        /*$value = $_POST['value'];
+        $pk = $_POST['pk'];
+        $name = $_POST['name'];
+        $this->modelsManager->createQuery("UPDATE Projet SET $name = '$value' WHERE id = $pk")->execute();*/
     }
 
     public function readAction($id = null)
     {
+        $url = new Url();
         $projet = Projet::findFirst($id);
         $usecases = Usecase::find("idProjet = $id");
         $messages = Message::find("idProjet = $id");
         $colorTexte = "black";
 
         $color = $projet->getDominantColor();
+
         //Si jamais la couleur retournée est noire, alors change sa couleur en gris clair
         if ($color["r"] == 0 && $color["g"] == 0 && $color["b"] == 0) {
             $color["r"] = 240;
@@ -88,6 +102,8 @@ class ProjetsController extends \ControllerBase
         $this->jquery->getOnClick("#menu2", "Projets/contributors/$id", "#contentProjet");
         $this->jquery->getOnClick("#menu3", "Projets/usecases/$id", "#contentProjet");
         $this->jquery->getOnClick("#menu5", "Projets/messages/$id", "#contentProjet");
+
+        $this->jquery->exec("$('#nom').editable()", true);
 
         //Compilation de Jquery dans la vue
         $this->jquery->compile($this->view);

@@ -3,7 +3,10 @@
 </div>
 <div class="alert alert-custom" style="background-color: rgb({{ color["r"] }},{{ color["g"] }},{{ color["b"] }});">
     <img class="logo-projet" src="{{ projet.getImage() }}">
-    <span class="h" style="color: {{ colorTexte }};">Projet : {{ projet.getNom() }}</span>
+    <span class="h" style="color: {{ colorTexte }};">Projet : <a
+                id="nom"
+                data-url="{{ url("Projets/soloUpdate") }} " data-type="text" data-pk="{{ projet.getId() }}"
+                data-title="Enter username">{{ projet.getNom() }}</a></span>
 </div>
 <div class="row">
     <div class="col-sm-3">
