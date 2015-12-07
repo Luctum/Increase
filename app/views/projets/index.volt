@@ -19,9 +19,9 @@
                     <div id="grp-button">
                         <p><a href="#" class="btn btn-xs btn-default" role="button"
                               style="border-radius: 50%;">
-                                <span class="glyphicon glyphicon-pencil"></span></a>
+                               </a>
 
-                            <a href="{{ url("Projets/delete") }}" class="btn btn-xs btn-default" role="button"
+                            <a href="{{ url("Projets/delete/"~p.getId())}} " class="btn btn-xs btn-default" role="button"
                                style="border-radius: 50%;">
                                 <span class="glyphicon glyphicon-remove-sign"></span></a>
                         </p>

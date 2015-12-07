@@ -106,20 +106,21 @@ class ControllerBase extends Controller
     {
         $object = call_user_func($this->model . '::findFirst', "$id");
         $object->delete();
+        $this->response->redirect("$this->controller/index");
     }
 
     public function asAdminAction()
     {
         $user = User::findFirst("id=3");
         $this->session->set("user", $user);
-        $this->response->redirect("Index/index");
+        $this->response->redirect("$this->controller/index");
     }
 
     public function asUserAction()
     {
         $user = User::findFirst("id=1");
         $this->session->set("user", $user);
-        $this->response->redirect("Index/index");
+        $this->response->redirect("$this->controller/index");
     }
 
     public function logoutAction()
