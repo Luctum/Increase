@@ -7,7 +7,6 @@
     {{ stylesheet_link("css/bootstrap.min.css") }}
     {{ javascript_include('js/bootstrap.min.js') }}
     {{ stylesheet_link("css/styles.css") }}
-
     <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css"
           rel="stylesheet"/>
     <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
@@ -16,7 +15,7 @@
 </head>
 <meta charset="UTF-8">
 <body>
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse" id="navbar">
     <div class="container">
         <div class="navbar-header">
             <a class="navbar-brand brandFalcon" href="{{ baseUrl }}"><img src="{{ baseUrl }}/public/img/logo.png"
@@ -74,6 +73,10 @@
     <div class="content">
         {{ content() }}
     </div>
+    {% if q is defined  and q['btFrm'] is defined and q['modal'] is defined %}
+        {{ q['btFrm'] }}
+        {{ q['modal'] }}
+    {% endif %}
 </div>
 <footer id="footer">
     <div class="container">

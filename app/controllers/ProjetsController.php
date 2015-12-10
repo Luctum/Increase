@@ -113,13 +113,13 @@ class ProjetsController extends \ControllerBase
         $usecases = Usecase::find("idProjet = $id");
         $messages = Message::find("idProjet = $id");
 
-         //Créer un array en javascript contenant la liste des utilisateurs pour la liste des clients sur Xeditable
+        //Créer un array en javascript contenant la liste des utilisateurs pour la liste des clients sur Xeditable
         $client = '[';
         $i = 0;
         foreach (User::find() as $c) {
             $i += 1;
-            if($id != 1){
-                $client .=',';
+            if ($id != 1) {
+                $client .= ',';
             }
             $client .= '{value: ' . $c->getId() . ', text:"' . $c->getIdentite() . '"}';
         }
@@ -150,7 +150,6 @@ class ProjetsController extends \ControllerBase
 
     }
 
-
     public function usecasesAction($id = null)
     {
         $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
@@ -162,6 +161,9 @@ class ProjetsController extends \ControllerBase
 
         $this->view->setVar("usecases", $usecases);
         $this->view->setVar("taches", $taches);
+
+        $this->jquery->exec("$('#poids').editable()", true);
+        $this->jquery->compile($this->view);
     }
 
     public function contributorsAction($id = null)
@@ -178,8 +180,7 @@ class ProjetsController extends \ControllerBase
         $contributor = array_unique($contributor, SORT_REGULAR);
 
         $this->view->setVar("contributors", $contributor);
-        $this->view->setVar("usecases", $usecases);
-
+        $this->view->setVar("usecases", $usecases);;
 
     }
 

@@ -7,8 +7,9 @@
     </tr>
     {% for u in usecases %}
         <tr class="active">
-            <td>{{ u.toString() }}</td>
-            <td>{{ u.getPoids() }}</td>
+            <td id="libelle">{{ u.toString() }}</td>
+            <td id="poids" data-type="text" data-pk="{{ u.getCode() }}" data-url="{{ url("Usecases/soloUpdate") }}"
+                data-title="Entrez le poids du usecase">{{ u.getPoids() }}</td>
             <td>
                 <div class="progress" style="height:20px; margin: 0;">
                     {% if u.getAvancement() == 0 %}0%{% endif %}
@@ -41,3 +42,4 @@
         {% endfor %}
     {% endfor %}
 </table>
+{{ script_foot }}
