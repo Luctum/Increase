@@ -14,10 +14,9 @@ class UsecasesController extends \ControllerBase
         $this->controller = "Usecases";
     }
 
-    public function indexAction()
-    {
-
+    public function updateAction($id=null){
+        parent::updateAction();
+        $this->response->redirect("Projets/read/$id/2");
     }
-
 }
 

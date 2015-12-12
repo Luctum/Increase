@@ -42,4 +42,8 @@
         {% endfor %}
     {% endfor %}
 </table>
+{% if q is defined  and q['btFrm'] is defined and q['modal'] is defined %}
+    {{ q['btFrm'] }}
+    {{ q['modal'] }}
+{% endif %}
 {{ script_foot }}

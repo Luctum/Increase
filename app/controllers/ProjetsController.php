@@ -43,7 +43,7 @@ class ProjetsController extends \ControllerBase
         $this->response->redirect("Projets/read/$idproj");
     }
 
-    public function readAction($id = null)
+    public function readAction($id = null, $redirect = null)
     {
         $projet = Projet::findFirst($id);
         $usecases = Usecase::find("idProjet = $id");
@@ -84,6 +84,21 @@ class ProjetsController extends \ControllerBase
         $this->jquery->getOnClick("#menu2", "Projets/contributors/$id", "#contentProjet");
         $this->jquery->getOnClick("#menu3", "Projets/usecases/$id", "#contentProjet");
         $this->jquery->getOnClick("#menu5", "Projets/messages/$id", "#contentProjet");
+
+        if($redirect != null){
+            switch($redirect){
+                case(1):
+                    $this->jquery->get("Projets/contributors/$id", "#contentProjet");
+                    break;
+                case(2):
+                    $this->jquery->get("Projets/usecases/$id", "#contentProjet");
+                    break;
+                case(3):
+                    $this->jquery->get("Projets/messages/$id", "#contentProjet");
+                    break;
+            }
+        }
+
 
         //Xeditable
         $this->jquery->exec("$('#nom').editable()", true);
@@ -162,7 +177,17 @@ class ProjetsController extends \ControllerBase
         $this->view->setVar("usecases", $usecases);
         $this->view->setVar("taches", $taches);
 
-        $this->jquery->exec("$('#poids').editable()", true);
+        $dialog = $this->jquery->bootstrap()->htmlModal("modal", "Ajouter un nouveau projet", "test");
+        $buttonFrm = $this->jquery->bootstrap()->htmlButton("btFrm", "Nouveau");
+        $dialog->addCancelButton();
+        $users = User::find();
+        $dialog->renderContent($this->view, "usecases", "frm", array("users" => $users,"id"=> $id));
+
+        $buttonFrm->onClick($dialog->jsShow());
+
+        $this->jquery->compile($this->view);
+
+        //$this->jquery->exec("$('#poids').editable()", true);
         $this->jquery->compile($this->view);
     }
 
@@ -198,7 +223,6 @@ class ProjetsController extends \ControllerBase
 
         $avancementReel = ($totalAvancementReel / $totalAvancementFini) * 100;
         return number_format($avancementReel, 1);
-
     }
 
 }
