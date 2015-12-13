@@ -7,7 +7,11 @@
     </tr>
     {% for u in usecases %}
         <tr class="active">
-            <td id="libelle">{{ u.toString() }}</td>
+            <td id="libelle">
+                <div id="grp-button-uc">
+                    <a href="{{ url("Usecases/delete/"~u.getId()) }}" class="btn btn-xs btn-default" role="button" style="border-radius: 50%;"><span class="glyphicon glyphicon-remove-sign"></span></a>
+                {{ u.toString() }}</div>
+            </td>
             <td id="poids" data-type="text" data-pk="{{ u.getCode() }}" data-url="{{ url("Usecases/soloUpdate") }}"
                 data-title="Entrez le poids du usecase">{{ u.getPoids() }}</td>
             <td>

@@ -18,5 +18,11 @@ class UsecasesController extends \ControllerBase
         parent::updateAction();
         $this->response->redirect("Projets/read/$id/2");
     }
+
+    public function deleteAction($id = null){
+        $object = Usecase::findFirst("id = $id");
+        $object->delete();
+        $this->response->redirect($_SERVER['HTTP_REFERER']);
+    }
 }
 

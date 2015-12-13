@@ -50,20 +50,11 @@ class ProjetsController extends \ControllerBase
         $messages = Message::find("idProjet = $id");
         $colorTexte = "black";
 
-        $color = $projet->getDominantColor();
+        $color = array();
 
-        //Si jamais la couleur retournée est noire, alors change sa couleur en gris clair
-        if ($color["r"] == 0 && $color["g"] == 0 && $color["b"] == 0) {
-            $color["r"] = 240;
-            $color["g"] = 240;
-            $color["b"] = 240;
-            //Sinon si la couleur est trop sombre change l'écriture en blanc pour qu'elle sois visible
-        } elseif ($color["r"] < 120 || $color["g"] < 120 || $color["b"] < 120) {
-            $colorTexte = "white";
-            $color["r"] += 70;
-            $color["g"] += 70;
-            $color["b"] += 70;
-        }
+        $color["r"] = 245;
+        $color["g"] = 245;
+        $color["b"] = 247;
 
         $avancementReel = $this->avancementReel($usecases);
 

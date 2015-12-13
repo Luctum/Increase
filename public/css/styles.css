@@ -116,6 +116,11 @@ body {
     top: -10px;
 }
 
+#grp-button-uc{
+     position: absolute;
+     left: -10px;
+ }
+
 .thumbnail {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
     transition: all 0.2s ease-in;
