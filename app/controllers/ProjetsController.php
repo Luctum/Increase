@@ -168,17 +168,25 @@ class ProjetsController extends \ControllerBase
         $this->view->setVar("usecases", $usecases);
         $this->view->setVar("taches", $taches);
 
-        $dialog = $this->jquery->bootstrap()->htmlModal("modal", "Ajouter un nouveau projet", "test");
-        $buttonFrm = $this->jquery->bootstrap()->htmlButton("btFrm", "Nouveau");
+        //Création du modal pour la création d'une UseCase.
+        $dialog = $this->jquery->bootstrap()->htmlModal("modal", "Ajouter une Usecase", "test");
+        $buttonFrm = $this->jquery->bootstrap()->htmlButton("btFrm", "Nouvelle UseCase");
         $dialog->addCancelButton();
         $users = User::find();
         $dialog->renderContent($this->view, "usecases", "frm", array("users" => $users,"id"=> $id));
 
         $buttonFrm->onClick($dialog->jsShow());
 
-        $this->jquery->compile($this->view);
+        //Création du modal pour les taches.
+        $dialogTaches = $this->jquery->bootstrap()->htmlModal("modalTache", "Ajouter une Tache", "test");
+        $buttonFrmEdit = $this->jquery->bootstrap()->htmlButton("btFrmTache", "Nouvelle Tache");
+        $usecases = Usecase::find();
+        $dialogTaches->addCancelButton();
+        $dialogTaches->renderContent($this->view, "taches", "frm", array("usecases" => $usecases,"id"=> $id));
+        $buttonFrmEdit->onClick($dialogTaches->jsShow());
 
-        //$this->jquery->exec("$('#poids').editable()", true);
+        $this->jquery->exec("$('.poids').editable()", true);
+        $this->jquery->exec("$('.avancement').editable()", true);
         $this->jquery->compile($this->view);
     }
 

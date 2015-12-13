@@ -14,6 +14,10 @@ class TachesController extends \ControllerBase
         $this->controller = "Taches";
     }
 
+    public function updateAction($id=null){
+        parent::updateAction();
+        $this->response->redirect("Projets/read/$id/2");
+    }
 
 }
 

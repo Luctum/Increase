@@ -1,4 +1,4 @@
-<form method="POST" action="{{ url("usecases/update/"~id) }}" name="frmUsecases">
+<form method="POST" action="{{ url("Usecases/update/"~id) }}" name="frmUsecases">
    <div class="form-group">
        Code : <input type="text" name="code" placeholder="ex: P-UC4">
    </div>
