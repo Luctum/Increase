@@ -1,6 +1,6 @@
 <?php
 
-class TestController extends \Phalcon\Mvc\Controller
+class TestController extends ControllerBase
 {
 
 	protected $model;
@@ -9,13 +9,9 @@ class TestController extends \Phalcon\Mvc\Controller
 	
     public function indexAction()
     {
-    	$operationsBdd = Operation::find();
-    	foreach ($operationsBdd as $operation) {
-    		$operations[] = $operation->getOperation();
-    	}
-    	foreach ($operations as $operation) {
-    		echo $operation;
-    	}
+    	$this->view->pick("Index/index");
+    	echo $this->jquery->bootstrap()->htmlAlert("alert1","Vous n'avez pas les droits pour accéder à cette page !");
+    	
     }
 
     public function initialize() {
@@ -23,6 +19,6 @@ class TestController extends \Phalcon\Mvc\Controller
     	$this->title="Test";
     	$this->controller="Test";
     }
-    
+ 
 }
 

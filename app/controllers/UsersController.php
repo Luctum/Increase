@@ -43,21 +43,7 @@ class UsersController extends ControllerBase
     	}
     }
     
-    public function loadAclAction($typeUser) {
-    	$acl = new AclList();
-    	$acl->setDefaultAction(Phalcon\Acl::DENY);
-    	$roleBdd = TypeUser::findFirst("id = ".$typeUser);
-    	
-    	$aclsBdd = Acl::find("idTypeUser = ".$typeUser);
-    	foreach ($aclsBdd as $aclBdd) {
-    		$role = TypeUser::findFirst("id = ".$aclBdd->getIdTypeUser());
-    		$ressource = Ressource::findFirst("id = ".$aclBdd->getIdRessource());
-    		$operation = Operation::findFirst("id = ".$aclBdd->getIdOperation());
-    		$acl->addRole(new Role($role->getLibelle()));
-    		$acl->addResource(new Resource($ressource->getLibelle(), $operation->getOperation()));
-    	}
-    	
-	}
+    
 	
 	public function readAction($id = NULL) {
 		

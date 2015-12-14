@@ -31,7 +31,7 @@ class User extends \Phalcon\Mvc\Model
      *
      * @var int
      */
-    protected $role;
+    protected $idTypeUser;
 
     /**
      * Method to set the value of field id
@@ -91,9 +91,9 @@ class User extends \Phalcon\Mvc\Model
      * @param string $role
      * @return $this
      */
-    public function setRole($role)
+    public function setIdTypeUser($idTypeUser)
     {
-        $this->role = $role;
+        $this->idTypeUser = $idTypeUser;
 
         return $this;
     }
@@ -143,9 +143,9 @@ class User extends \Phalcon\Mvc\Model
      *
      * @return string
      */
-    public function getRole()
+    public function getIdTypeUser()
     {
-        return $this->role;
+        return $this->idTypeUser;
     }
 
     /**
@@ -156,7 +156,7 @@ class User extends \Phalcon\Mvc\Model
         $this->hasMany('id', 'Message', 'idUser', array('alias' => 'Messages'));
         $this->hasMany('id', 'Projet', 'idClient', array('alias' => 'Projets'));
         $this->hasMany('id', 'Usecase', 'idDev', array('alias' => 'Usecases'));
-        $this->belongsTo('idRole', 'Role', 'id', array('alias' => 'Role'));
+        $this->belongsTo('idTypeUser', 'TypeUser', 'id', array('alias' => 'TypeUser'));
     }
 
     public function toString(){
