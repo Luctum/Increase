@@ -68,7 +68,7 @@ class ControllerBase extends Controller
     /////////////////////////////////////////
     public function updateAction()
     {
-        $id = $this->request->getPost('id','int');
+        $id = $this->request->getPost('id', 'int');
         if ($this->request->isPost()) {
             $object = $this->getInstance(@$_POST["id"]);
             $this->setValuesToObject($object);
@@ -94,7 +94,7 @@ class ControllerBase extends Controller
     //PErmet l'édition d'un seul champ à la fois
     public function soloUpdateAction()
     {
-        $name = $this->request->getPost('name','string');
+        $name = $this->request->getPost('name', 'string');
         //Créer la fonction variable 'set' en fonction du name en POST
         $func = 'set' . ucfirst($name);
         $projet = call_user_func($this->model . '::findFirst', $_POST['pk']);

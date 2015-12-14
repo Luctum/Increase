@@ -15,7 +15,8 @@
                         <p>{{ p.getDescription() }}</p>
                     </div>
                     <hr>
-                    <p>Client : {{ p.getClient().getIdentite() }}</p>
+                    <a href="{{ url("Users/read/"~p.getClient().getId()) }}">Client
+                        : {{ p.getClient().getIdentite() }}</a>
 
                     <div id="grp-button">
                         <p><a href="#" class="btn btn-xs btn-default" role="button"

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.14
+-- version 4.5.0.2
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Dim 13 Décembre 2015 à 23:13
--- Version du serveur :  5.6.26
--- Version de PHP :  5.6.12
+-- Généré le :  Lun 14 Décembre 2015 à 11:16
+-- Version du serveur :  10.0.17-MariaDB
+-- Version de PHP :  5.6.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -26,7 +26,7 @@ SET time_zone = "+00:00";
 -- Structure de la table `message`
 --
 
-CREATE TABLE IF NOT EXISTS `message` (
+CREATE TABLE `message` (
   `id` int(11) NOT NULL,
   `objet` varchar(255) DEFAULT NULL,
   `content` text,
@@ -41,8 +41,9 @@ CREATE TABLE IF NOT EXISTS `message` (
 --
 
 INSERT INTO `message` (`id`, `objet`, `content`, `date`, `idUser`, `idProjet`, `idFil`) VALUES
-(2, 'Essai', 'Aucun contenu', '2015-03-12 23:00:00', 1, 1, NULL),
-(7, 'Ok', 'Rien à répondre', '2015-03-13 13:33:51', 2, 1, 2);
+(2, 'Essai', 'Aucun contenu', '2015-03-12 23:00:00', 1, 2, NULL),
+(7, 'Ok', 'Rien à répondre', '2015-03-13 13:33:51', 2, 2, 2),
+(8, 'eza', 'eza', '2015-12-14 07:45:57', 1, 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -50,7 +51,7 @@ INSERT INTO `message` (`id`, `objet`, `content`, `date`, `idUser`, `idProjet`, `
 -- Structure de la table `projet`
 --
 
-CREATE TABLE IF NOT EXISTS `projet` (
+CREATE TABLE `projet` (
   `id` int(11) NOT NULL,
   `nom` varchar(100) NOT NULL,
   `description` text,
@@ -65,9 +66,8 @@ CREATE TABLE IF NOT EXISTS `projet` (
 --
 
 INSERT INTO `projet` (`id`, `nom`, `description`, `dateLancement`, `dateFinPrevue`, `image`, `idClient`) VALUES
-(1, 'Increase', 'A Phalcon web application to manage the progress of projects, and improve communication with the customer', '2015-03-16', '2015-03-29', 'http://orig13.deviantart.net/ceee/f/2013/272/5/a/yolo_png__read_description__by_thdianaduh-d6oljyx.png', 1),
-(2, 'Open-beer', 'A free, public database, API and web application for beer information.1', '2015-03-15', '2015-03-29', 'http://www.ibiblio.org/themug/desktops/OS10.3/Aqua%20Red.jpg', 1),
-(3, 'Essai', 'test&lt;html&gt;\r\n\r\nU wot m8 gr8', '2015-03-10', '2015-03-09', 'https://pbs.twimg.com/profile_images/603720828115648512/gh9H1A7T.png', 1),
+(2, 'Open-beer', 'A free, public database, API and web application for beer information.', '2015-03-15', '2015-03-29', 'http://www.ibiblio.org/themug/desktops/OS10.3/Aqua%20Red.jpg', 1),
+(3, 'Essai', 'test<html>\n\nU wot m8 gr8', '2015-03-10', '2015-03-09', 'https://pbs.twimg.com/profile_images/603720828115648512/gh9H1A7T.png', 1),
 (4, 'ChatonMignon', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus posuere euismod sem, sit amet gravida ligula placerat cursus. Suspendisse lacinia felis eu ante aliquam, vitae vehicula sem convallis. Donec odio magna, aliquet eget augue sit amet, viverra venenatis metus. Nulla odio nulla, euismod ac erat et, vestibulum ullamcorper elit. Donec aliquam lobortis purus, quis tempus leo dignissim vel. Morbi egestas egestas magna, id volutpat tellus aliquam ut. Pellentesque bibendum lectus odio.123', '2015-12-07', '2016-02-10', 'http://www.mon-chaton.fr/system/imgs/230/200/chaton-pas_mignon-3.jpeg?1329837117', 4);
 
 -- --------------------------------------------------------
@@ -76,27 +76,25 @@ INSERT INTO `projet` (`id`, `nom`, `description`, `dateLancement`, `dateFinPrevu
 -- Structure de la table `tache`
 --
 
-CREATE TABLE IF NOT EXISTS `tache` (
+CREATE TABLE `tache` (
   `id` int(11) NOT NULL,
   `libelle` varchar(45) DEFAULT NULL,
   `date` date DEFAULT NULL,
   `avancement` smallint(6) DEFAULT NULL,
   `codeUseCase` varchar(15) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `tache`
 --
 
 INSERT INTO `tache` (`id`, `libelle`, `date`, `avancement`, `codeUseCase`) VALUES
-(1, 'Interview client +rédaction', '2015-03-22', 70, 'I-UC1'),
-(2, 'MCD', '2015-03-22', 100, 'I-UC2'),
+(2, 'MCD', '2015-03-22', 50, 'I-UC2'),
 (3, 'Génération base', '2015-03-22', 100, 'I-UC3'),
-(4, 'Uses cases', '2015-03-23', 100, 'I-UC4'),
-(5, 'Connexion REST', '2015-03-13', 50, 'OB-UC1'),
-(6, 'Liste des bières', '2015-03-22', 100, 'OB-UC2'),
-(7, 'Liste des bières par brasserie', '2015-03-22', 10, 'OB-UC2'),
-(8, '4a', '0000-00-00', 50, '456');
+(4, 'Uses cases2', '2015-03-23', 30, 'I-UC4'),
+(5, 'Connexion REST', '2015-03-13', 20, 'OB-UC1'),
+(8, '4a', '0000-00-00', 50, '456'),
+(11, 'bonjour', '2015-12-09', 50, 'OB-UC2');
 
 -- --------------------------------------------------------
 
@@ -104,7 +102,7 @@ INSERT INTO `tache` (`id`, `libelle`, `date`, `avancement`, `codeUseCase`) VALUE
 -- Structure de la table `usecase`
 --
 
-CREATE TABLE IF NOT EXISTS `usecase` (
+CREATE TABLE `usecase` (
   `id` int(11) NOT NULL,
   `code` varchar(15) NOT NULL,
   `nom` varchar(255) NOT NULL,
@@ -112,18 +110,17 @@ CREATE TABLE IF NOT EXISTS `usecase` (
   `avancement` smallint(6) DEFAULT NULL,
   `idProjet` int(11) NOT NULL,
   `idDev` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `usecase`
 --
 
 INSERT INTO `usecase` (`id`, `code`, `nom`, `poids`, `avancement`, `idProjet`, `idDev`) VALUES
-(18, 'I-UC1', 'Règles de gestion', 3, 50, 1, 2),
-(19, 'I-UC2', 'Analyse des données', 2, 100, 1, 2),
-(21, 'I-UC4', 'Analyse fonctionnelle', 20, 100, 1, 4),
-(22, 'OB-UC1', 'Connexion au server REST', 15, 0, 2, 5),
-(23, 'OB-UC2', 'Gestion des bières (liste/ajout/modification)', 10, 0, 2, 5),
+(19, 'I-UC2', 'Analyse des données', 2, 50, 2, 2),
+(21, 'I-UC4', 'Analyse fonctionnelle', 20, 30, 2, 4),
+(22, 'OB-UC1', 'Connexion au server REST1', 20, 20, 2, 3),
+(23, 'OB-UC2', 'Gestion des bières (liste/ajout/modification)', 10, 50, 2, 5),
 (30, '456', '456', 45, 0, 4, 1);
 
 -- --------------------------------------------------------
@@ -132,7 +129,7 @@ INSERT INTO `usecase` (`id`, `code`, `nom`, `poids`, `avancement`, `idProjet`, `
 -- Structure de la table `user`
 --
 
-CREATE TABLE IF NOT EXISTS `user` (
+CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `mail` varchar(255) NOT NULL,
   `password` varchar(255) DEFAULT NULL,
@@ -187,19 +184,40 @@ ALTER TABLE `usecase`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT pour les tables exportées
 --
 
 --
+-- AUTO_INCREMENT pour la table `message`
+--
+ALTER TABLE `message`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT pour la table `projet`
+--
+ALTER TABLE `projet`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
 -- AUTO_INCREMENT pour la table `tache`
 --
 ALTER TABLE `tache`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT pour la table `usecase`
 --
 ALTER TABLE `usecase`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+--
+-- AUTO_INCREMENT pour la table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

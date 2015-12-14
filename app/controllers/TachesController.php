@@ -31,10 +31,25 @@ class TachesController extends \ControllerBase
         $projet->$func($_POST['value']);
         $projet->save();
 
+        $this->useCaseUpdate($projet);
+    }
+
+    public function deleteAction($id = null)
+    {
+        $object = call_user_func($this->model . '::findFirst', "$id");
+        $object->delete();
+
+        $this->useCaseUpdate($object);
+        $this->response->redirect("$this->controller/index");
+        $this->response->redirect($_SERVER['HTTP_REFERER'] . "/2");
+    }
+
+    public function useCaseUpdate($obj)
+    {
         //Update l'avancement de la usecase lors de changements sur une usecase
         $avancementTotal = 0;
-        $usecase = Usecase::findFirst("code='" . $projet->getCodeUseCase() . "'");
-        $taches = Tache::find("codeUseCase LIKE '" . $projet->getCodeUseCase() . "'");
+        $usecase = Usecase::findFirst("code='" . $obj->getCodeUseCase() . "'");
+        $taches = Tache::find("codeUseCase LIKE '" . $obj->getCodeUseCase() . "'");
         foreach ($taches as $tache) {
             $avancementTotal += $tache->getAvancement();
         }

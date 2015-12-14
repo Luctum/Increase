@@ -9,6 +9,10 @@
                 id="nom"
                 data-url="{{ url("Projets/soloUpdate") }} " data-type="text" data-pk="{{ projet.getId() }}"
                 data-title="Nom du projet">{{ projet.getNom() }}</a></span>
+
+    <a href="{{ url("Projets/index") }}">
+        <div style="float: right;" class="btn btn-default">Retour</div>
+    </a>
 </div>
 <div class="row">
     <div class="col-sm-3">

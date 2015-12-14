@@ -123,6 +123,7 @@ body {
 #grp-button-uc {
     position: absolute;
     left: -10px;
+    z-index: 2;
 }
 
 .thumbnail {
@@ -136,6 +137,13 @@ body {
 
 #borderNone {
     border: 0;
+}
+
+#logoProfil {
+    width: 250px;
+    height: 250px;
+    border-radius: 6px;
+
 }
 
 #contentCaption {

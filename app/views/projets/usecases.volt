@@ -10,10 +10,10 @@
             <td id="libelle">
                 <div id="grp-button-uc">
                     <a href="{{ url("Usecases/delete/"~u.getId()) }}" class="btn btn-xs btn-default" role="button"
-                       style="border-radius: 50%;"><span class="glyphicon glyphicon-remove-sign"></span></a>
-                    <a class="nom" id="nom" data-type="text" data-pk="{{ u.getId() }}"
-                       data-url="{{ url("Usecases/soloUpdate") }}"
-                       data-title="Entrez le nom de la usecase">{{ u.getNom() }}</a></div>
+                       style="border-radius: 50%;"><span class="glyphicon glyphicon-remove-sign"></span></a></div>
+                <a class="nom" id="nom" data-type="text" data-pk="{{ u.getId() }}"
+                   data-url="{{ url("Usecases/soloUpdate") }}"
+                   data-title="Entrez le nom de la usecase">{{ u.getNom() }}</a>
             </td>
             <td class="poids" id="poids" data-type="text" data-pk="{{ u.getId() }}"
                 data-url="{{ url("Usecases/soloUpdate") }}"
@@ -35,6 +35,12 @@
             {% if t.getCodeUseCase() is u.getCode() %}
                 <tr class="decale" style="text-indent: 5%;">
                     <td style="font-size: 12px;">
+                        <div id="grp-button-uc"><a href="{{ url("Taches/delete/"~t.getId()) }}"
+                                                   class="btn btn-xs btn-default"
+                                                   role="button"
+                                                   style="border-radius: 50%;"><span
+                                        class="glyphicon glyphicon-remove-sign"></span></a>
+                        </div>
                         <i class="nom" id="libelle" data-type="text" data-pk="{{ t.getId() }}"
                            data-url="{{ url("Taches/soloUpdate") }}"
                            data-title="Entrez le nom de la usecase">{{ t.getLibelle() }}</i>
