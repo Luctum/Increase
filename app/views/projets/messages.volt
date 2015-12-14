@@ -11,7 +11,7 @@ Messages :
                     {{ r.getUser().getIdentite() }} <span>{{ r.getUser().getMail() }}</span>
                     {% if session.get("user") != null and session.get("user").getId() == r.getUser().getId() %}
                         <i>(Vous)</i>
-                    {% endif %}</h5>
+                    {% endif %} - {{ r.getObjet() }}</h5>
                 {{ r.getContent() }}
             </div>
             <div id="newMsg">

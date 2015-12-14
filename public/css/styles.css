@@ -28,6 +28,10 @@ body {
     border-radius: 50%;
 }
 
+.popover-title {
+    color: #393d40;
+}
+
 .logo-projet {
     height: 40px;
     width: 40px;
@@ -116,10 +120,10 @@ body {
     top: -10px;
 }
 
-#grp-button-uc{
-     position: absolute;
-     left: -10px;
- }
+#grp-button-uc {
+    position: absolute;
+    left: -10px;
+}
 
 .thumbnail {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);

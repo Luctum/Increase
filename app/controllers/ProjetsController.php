@@ -76,8 +76,8 @@ class ProjetsController extends \ControllerBase
         $this->jquery->getOnClick("#menu3", "Projets/usecases/$id", "#contentProjet");
         $this->jquery->getOnClick("#menu5", "Projets/messages/$id", "#contentProjet");
 
-        if($redirect != null){
-            switch($redirect){
+        if ($redirect != null) {
+            switch ($redirect) {
                 case(1):
                     $this->jquery->get("Projets/contributors/$id", "#contentProjet");
                     break;
@@ -138,10 +138,10 @@ class ProjetsController extends \ControllerBase
                                 pk: $id,
                                 title: 'Enter username',
                                 source: $client
-
         })", true);
 
         //Xeditable
+
         $this->jquery->exec("$('#description').editable()", true);
         $this->jquery->exec("$('#dateLancement').editable()", true);
         $this->jquery->exec("$('#dateFinPrevue').editable()", true);
@@ -173,7 +173,7 @@ class ProjetsController extends \ControllerBase
         $buttonFrm = $this->jquery->bootstrap()->htmlButton("btFrm", "Nouvelle UseCase");
         $dialog->addCancelButton();
         $users = User::find();
-        $dialog->renderContent($this->view, "usecases", "frm", array("users" => $users,"id"=> $id));
+        $dialog->renderContent($this->view, "usecases", "frm", array("users" => $users, "id" => $id));
 
         $buttonFrm->onClick($dialog->jsShow());
 
@@ -182,11 +182,36 @@ class ProjetsController extends \ControllerBase
         $buttonFrmEdit = $this->jquery->bootstrap()->htmlButton("btFrmTache", "Nouvelle Tache");
         $usecases = Usecase::find();
         $dialogTaches->addCancelButton();
-        $dialogTaches->renderContent($this->view, "taches", "frm", array("usecases" => $usecases,"id"=> $id));
+        $dialogTaches->renderContent($this->view, "taches", "frm", array("usecases" => $usecases, "id" => $id));
         $buttonFrmEdit->onClick($dialogTaches->jsShow());
 
+
+        //Créer un array en javascript contenant la liste des utilisateurs pour la liste des développeurs sur Xeditable
+        $dev = '[';
+        $i = 0;
+        foreach (User::find() as $c) {
+            $i += 1;
+            if ($id != 1) {
+                $dev .= ',';
+            }
+            $dev .= '{value: ' . $c->getId() . ', text:"' . $c->getIdentite() . '"}';
+        }
+
+        $dev .= ']';
+
+        //Select Xeditable
+        $this->jquery->exec("$('.idDev').editable({
+                                type: 'select',
+                                title: 'Enter username',
+                                source: $dev
+        })", true);
+
+
+        // Xeditable
+        $this->jquery->exec("$('.nom').editable()", true);
         $this->jquery->exec("$('.poids').editable()", true);
         $this->jquery->exec("$('.avancement').editable()", true);
+
         $this->jquery->compile($this->view);
     }
 
@@ -212,16 +237,22 @@ class ProjetsController extends \ControllerBase
     public function avancementReel($usecases)
     {
         //Calcul le taux de finition du projet en fonction du nombre d'usecases total et du taux d'avancement sur chaque usecases.
+
+        $taches = Tache::find();
         $countUsecases = count($usecases);
         $totalAvancementFini = $countUsecases * 100;
         $totalAvancementReel = 0;
 
         foreach ($usecases as $u) {
+            $taches = Tache::find("codeUseCase = '" . $u->getCode() . "'");
+
             $totalAvancementReel = $totalAvancementReel + $u->getAvancement();
         }
 
         $avancementReel = ($totalAvancementReel / $totalAvancementFini) * 100;
         return number_format($avancementReel, 1);
+
+
     }
 
 }
