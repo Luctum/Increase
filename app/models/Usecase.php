@@ -9,6 +9,8 @@ class Usecase extends \Phalcon\Mvc\Model
      */
     protected $code;
 
+
+    protected $id;
     /**
      *
      * @var string
@@ -40,11 +42,29 @@ class Usecase extends \Phalcon\Mvc\Model
     protected $idDev;
 
     /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
      * Method to set the value of field code
      *
      * @param string $code
      * @return $this
      */
+
+
     public function setCode($code)
     {
         $this->code = $code;
@@ -219,7 +239,8 @@ class Usecase extends \Phalcon\Mvc\Model
         return parent::findFirst($parameters);
     }
 
-    public function toString(){
-        return $this->nom."(".$this->avancement.")";
+    public function toString()
+    {
+        return $this->nom . " (" . $this->avancement . ")";
     }
 }

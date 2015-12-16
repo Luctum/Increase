@@ -63,9 +63,9 @@ $di->set('db', function () use ($config) {
         'username' => $config->database->username,
         'password' => $config->database->password,
         'dbname' => $config->database->dbname,
-    		'options' => array(
-    				PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'
-    		)
+        'options' => array(
+            PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'
+        )
     ));
 });
 
@@ -92,10 +92,9 @@ $di->set('session', function () {
     return $session;
 });
 
-$di->set("jquery",function(){
-    $jquery= new JsUtils(array("driver"=>"Jquery"));
+$di->set("jquery", function () {
+    $jquery = new JsUtils(array("driver" => "Jquery"));
     $jquery->bootstrap(new Bootstrap());
-    $jquery->ui(new Ajax\JqueryUI());//optional for JQuery UI
     return $jquery;
 });
 
