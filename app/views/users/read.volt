@@ -2,9 +2,13 @@
     <div class="col-md-3">
         <img id="logoProfil" src="{{ user.getImage() }}">
         <hr/>
-        <h4>{{ user.getIdentite() }}</h4>
+        <h4 id="identite"
+            data-url="{{ url("Users/soloUpdate") }} " data-type="text" data-pk="{{ user.getId() }}"
+            data-title="Nom de l'utilisateur">{{ user.getIdentite() }}</h4>
 
-        <p>{{ user.getMail() }}</p>
+        <p id="mail"
+           data-url="{{ url("Users/soloUpdate") }} " data-type="text" data-pk="{{ user.getId() }}"
+           data-title="Mail de l'utilisateur">{{ user.getMail() }}</p>
         <hr/>
     </div>
 
@@ -35,5 +39,5 @@
             </div>
         </div>
     </div>
-
 </div>
+{{ script_foot }}

@@ -65,7 +65,7 @@ class ControllerBase extends Controller
         $object->assign($_POST);
     }
 
-    /////////////////////////////////////////
+
     public function updateAction()
     {
         $id = $this->request->getPost('id', 'int');

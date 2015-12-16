@@ -6,7 +6,7 @@
          data-url="{{ url("Projets/soloUpdate") }} " data-type="text" data-pk="{{ projet.getId() }}"
          data-title="Url de l'image">
     <span class="h" style="color: {{ colorTexte }};">Projet : <a
-                id="nom"
+                id="mail"
                 data-url="{{ url("Projets/soloUpdate") }} " data-type="text" data-pk="{{ projet.getId() }}"
                 data-title="Nom du projet">{{ projet.getNom() }}</a></span>
 

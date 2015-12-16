@@ -27,6 +27,10 @@ class UsersController extends ControllerBase
         $this->view->setVar("projets", $projets);
         $this->view->setVar("projetsCree", $projetsCree);
         $this->view->setVar("usecases", $usecases);
+
+        $this->jquery->exec("$('#mail').editable()", true);
+
+        $this->jquery->compile($this->view);
     }
 }
 
