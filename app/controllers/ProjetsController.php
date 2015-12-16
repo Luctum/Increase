@@ -78,13 +78,13 @@ class ProjetsController extends \ControllerBase
 
         if ($redirect != null) {
             switch ($redirect) {
-                case(1):
+                case (1):
                     $this->jquery->get("Projets/contributors/$id", "#contentProjet");
                     break;
-                case(2):
+                case (2):
                     $this->jquery->get("Projets/usecases/$id", "#contentProjet");
                     break;
-                case(3):
+                case (3):
                     $this->jquery->get("Projets/messages/$id", "#contentProjet");
                     break;
             }
@@ -238,21 +238,17 @@ class ProjetsController extends \ControllerBase
     {
         //Calcul le taux de finition du projet en fonction du nombre d'usecases total et du taux d'avancement sur chaque usecases.
 
-        $taches = Tache::find();
         $countUsecases = count($usecases);
         $totalAvancementFini = $countUsecases * 100;
         $totalAvancementReel = 0;
 
         foreach ($usecases as $u) {
-            $taches = Tache::find("codeUseCase = '" . $u->getCode() . "'");
 
             $totalAvancementReel = $totalAvancementReel + $u->getAvancement();
         }
 
         $avancementReel = ($totalAvancementReel / $totalAvancementFini) * 100;
         return number_format($avancementReel, 1);
-
-
     }
 
 }
