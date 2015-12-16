@@ -221,7 +221,8 @@ class Projet extends \Phalcon\Mvc\Model
      *
      * @return string
      */
-    public function getSource(){
+    public function getSource()
+    {
         return 'projet';
     }
 
@@ -231,7 +232,8 @@ class Projet extends \Phalcon\Mvc\Model
      * @param mixed $parameters
      * @return Projet[]
      */
-    public static function find($parameters = null){
+    public static function find($parameters = null)
+    {
         return parent::find($parameters);
     }
 
@@ -246,12 +248,84 @@ class Projet extends \Phalcon\Mvc\Model
         return parent::findFirst($parameters);
     }
 
-    public function toString(){
+    public function toString()
+    {
         return $this->nom;
     }
 
     //Return a string containing the principal content of the model
-    public function getPrincipal(){
-        return "Client : ".$this->client->toString()." <br/> Desciption : ".$this->description;
+    public function getPrincipal()
+    {
+        return "Client : " . $this->client->toString() . " <br/> Desciption : " . $this->description;
     }
+
+
+    //R�cup�re la couleur dominante de l'image du profil
+    public function getDominantColor()
+    {
+        $rTotal = 0;
+        $gTotal = 0;
+        $bTotal = 0;
+        $total = 0;
+
+
+        $i = imagecreatefrompng($this->getImage());
+
+        for ($x = 0; $x < imagesx($i); $x++) {
+            for ($y = 0; $y < imagesy($i); $y++) {
+
+                $rgb = imagecolorat($i, $x, $y);
+                $r = ($rgb >> 16) & 0xFF;
+                $g = ($rgb >> 8) & 0xFF;
+                $b = $rgb & 0xFF;
+
+                $rTotal += $r;
+                $gTotal += $g;
+                $bTotal += $b;
+                $total++;
+
+            }
+        }
+        $rTotal = round($rTotal / $total);
+        $gTotal = round($gTotal / $total);
+        $bTotal = round($bTotal / $total);
+
+        $tabColor = ["r" => $rTotal, "g" => $gTotal, "b" => $bTotal];
+        return $tabColor;
+    }
+
+    //Converti l'image de profil afin de pouvoir l'analyser.
+
+    public function imageCreateFromAny()
+    {
+        $img = $this->getImage();
+        $type = getImageSize($img); // [] if you don't have exif you could use getImageSize()
+        $allowedTypes = array(
+            1,  // [] gif
+            2,  // [] jpg
+            3,  // [] png
+            6   // [] bmp
+        );
+        if (!in_array($type, $allowedTypes)) {
+            return false;
+        }
+        $im = null;
+        switch ($type) {
+            case 1 :
+                $im = imageCreateFromGif($img);
+                break;
+            case 2 :
+                $im = imageCreateFromJpeg($img);
+                break;
+            case 3 :
+                $im = imageCreateFromPng($img);
+                break;
+            case 6 :
+                $im = imageCreateFromBmp($img);
+                break;
+        }
+        return $im;
+    }
+
+
 }

@@ -1,3 +1,4 @@
+{{ msg }}
 <table class='table table-striped'>
     <thead><tr><th colspan='3'>{{title}}</th></tr></thead>
     <tbody>

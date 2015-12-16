@@ -8,9 +8,9 @@ use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
 use Ajax\JsUtils;
+use Ajax\Bootstrap;
 use Phalcon\Mvc\Dispatcher as MvcDispatcher;
 use Phalcon\Events\Manager as EventsManager;
-use Ajax\Bootstrap;
 
 /**
  * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework
@@ -63,9 +63,9 @@ $di->set('db', function () use ($config) {
         'username' => $config->database->username,
         'password' => $config->database->password,
         'dbname' => $config->database->dbname,
-    		'options' => array(
-    				PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'
-    		)
+        'options' => array(
+            PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'
+        )
     ));
 });
 
@@ -92,10 +92,9 @@ $di->set('session', function () {
     return $session;
 });
 
-$di->set("jquery",function(){
-    $jquery= new JsUtils(array("driver"=>"Jquery"));
+$di->set("jquery", function () {
+    $jquery = new JsUtils(array("driver" => "Jquery"));
     $jquery->bootstrap(new Bootstrap());
-    $jquery->ui(new Ajax\JqueryUI());//optional for JQuery UI
     return $jquery;
 });
 
