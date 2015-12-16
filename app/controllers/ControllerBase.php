@@ -70,9 +70,13 @@ class ControllerBase extends Controller{
 	        $object = call_user_func($this->model.'::findFirst', "id = $id");
 	        
 	        $object->delete();
-	        $this->response->redirect("Index/index");
+	        $this->response->redirect("main/index");
     	} else {
-    		echo "Access Denied !";
+    		echo $this->jquery->bootstrap()->htmlAlert("alert1","Vous n'avez pas les droits de suppression sur cette page !");
+    		
+    		sleep(5);
+    		
+    		$this->view->pick($this->controller."/index");
     	}
     }
 

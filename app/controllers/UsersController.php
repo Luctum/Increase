@@ -48,6 +48,13 @@ class UsersController extends ControllerBase
 	public function readAction($id = NULL) {
 		
 	}
+	
+	public function rulesAction() {
+		$accordion=$this->jquery->bootstrap()->htmlAccordion("accordion1");
+		$accordion->addPanel("Panel 1","Contenu du panel 1");
+		$accordion->addPanel("Panel 2","Contenu du panel 2");
+		echo $accordion;
+	}
 
  
 
