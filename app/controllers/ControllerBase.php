@@ -1,6 +1,10 @@
 <?php
 
 use Phalcon\Mvc\Controller;
+
+use Phalcon\Acl\Adapter\Memory as AclList;
+use Phalcon\Acl\Role;
+use Phalcon\Acl\Resource;
 use Phalcon\Mvc\Url;
 
 class ControllerBase extends Controller
@@ -17,10 +21,14 @@ class ControllerBase extends Controller
         $this->view->setVar("baseUrl", $baseUrl);
         $this->view->setVar("controller", $this->controller);
         $this->view->setVar("title", $this->title);
+        if ($this->verifyAccessAction($this->controller, "index")) {
+            $msg = "";
+        }
     }
 
     public function indexAction($message = NULL)
     {
+    if ($this->verifyAccessAction($this->controller, "index")) {
         $msg = "";
         if (isset($message)) {
             if (is_string($message)) {
@@ -33,11 +41,9 @@ class ControllerBase extends Controller
         $objects = call_user_func($this->model . "::find");
         $this->view->setVar("objects", $objects);
         $this->view->pick("main/index");
-    }
-
-    public function frmAction($id = NULL)
-    {
-        echo "Pas encore implémenté...";
+        } else {
+            $this->view->pick("main/error");
+    	}
     }
 
     public function getInstance($id = NULL)
@@ -59,6 +65,7 @@ class ControllerBase extends Controller
             $this->view->pick("main/read");
         }
     }
+
 
     protected function setValuesToObject(&$object)
     {
@@ -106,8 +113,10 @@ class ControllerBase extends Controller
 
     public function deleteAction($id = null)
     {
-        $object = call_user_func($this->model . '::findFirst', "$id");
-        $object->delete();
+        if ($this->verifyAccessAction($this->controller, "write")) {
+            $object = call_user_func($this->model . '::findFirst', "$id");
+            $object->delete();
+        }
         $this->response->redirect("$this->controller/index");
     }
 
@@ -129,8 +138,54 @@ class ControllerBase extends Controller
     {
         $this->session->destroy();
         $this->response->redirect("Index/index");
-    }
+    }    
+    
+    public function loadAclAction($typeUser) {
+    	$acl = new AclList();
+    	$acl->setDefaultAction(Phalcon\Acl::DENY);
+    	
+    	$roles = TypeUser::find();
+    	foreach ($roles as $role) {
+    		$acl->addRole($role->getLibelle());
+    	}
 
+    	$operationsBdd = Operation::find();
+    	$operations = array();
+    	foreach ($operationsBdd as $operation) {
+    		$operations[] = $operation->getOperation();
+    	}
+    	
+    	$ressources = Ressource::find();
+    	foreach ($ressources as $ressource) {
+    		$acl->addResource($ressource->getLibelle(), $operations);
+    	}
+ 
+    	$aclsBdd = Acl::find();
+    	foreach ($aclsBdd as $aclBdd) {
+    		$typeUserBdd = TypeUser::findFirst("id = ".$aclBdd->getIdTypeUser());
+    		$ressourceBdd = Ressource::findFirst("id = ".$aclBdd->getIdRessource());
+    		$operationBdd = Operation::findFirst("id = ".$aclBdd->getIdOperation());
+    		$acl->allow($typeUserBdd->getLibelle(), $ressourceBdd->getLibelle(), $operationBdd->getOperation());
+    	}
+    	
+    	return $acl;
+    }
+    
+    public function verifyAccessAction($activeResource, $activeOperation) {
+        if($this->session->has("user")){
+            $user = $this->session->get("user");
+            $typeUser = TypeUser::findFirst("id = ".$user->getIdTypeUser());
+            $typeUserSession = $user->getIdTypeUser();
+            $acl = $this->loadAclAction($typeUserSession);
+            if ($acl->isAllowed($typeUser->getLibelle(), $activeResource, $activeOperation)) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }else{
+            return 0;
+        }
+    }
 
     /**
      * Affiche un message Alert bootstrap
@@ -192,6 +247,5 @@ class ControllerBase extends Controller
     {
         $this->_showMessage($message, "info", $timerInterval, $dismissable);
     }
-
 
 }

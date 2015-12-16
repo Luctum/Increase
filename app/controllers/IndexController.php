@@ -1,5 +1,4 @@
 <?php
-
 class IndexController extends ControllerBase
 {
     protected $model;
@@ -14,6 +13,6 @@ class IndexController extends ControllerBase
 
     public function indexAction()
     {
+
     }
 }
-
