@@ -25,15 +25,13 @@
         <ul class="nav navbar-nav">
             <li><a href="{{ baseUrl }}Projets/index">Projets</a></li>
             <li><a href="{{ baseUrl }}Users/index">Utilisateurs</a></li>
+            {% if session.has("user") and session.get("user").getIdTypeUser() == 0 %}
+                <li><a href="{{ baseUrl }}Acl/index">Gestion des Acl</a></li>
+            {% endif %}
         </ul>
 
         <div class="nav navbar-nav navbar-right">
-            <form class="navbar-form navbar-left" role="search">
-                <div class="form-group">
-                    <input class="form-control" placeholder="Search" type="text">
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-            </form>
+
             {% if this.session.has("user") %}
                 <li class="dropdown" id="profilbtn">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -51,9 +49,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">Sign In<span class="caret"></span></a>
                     <ul class="dropdown-menu ">
-                        <li><a href="#">Sign In</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Sign Up !</a></li>
+                        <li><a href="{{ url("Users/login") }}">Sign In</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="{{ url.get(controller~"/asUser") }}">asUser</a></li>
                         <li><a href="{{ url.get(controller~"/asAdmin") }}">asAdmin</a></li>

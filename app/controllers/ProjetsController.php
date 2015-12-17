@@ -18,6 +18,8 @@ class ProjetsController extends \ControllerBase
 
     public function indexAction($message = null)
     {
+        if ($this->verifyAccessAction($this->controller, "index")) {
+
         $projets = Projet::find();
         $this->view->setVar("projets", $projets);
 
@@ -30,73 +32,85 @@ class ProjetsController extends \ControllerBase
         $buttonFrm->onClick($dialog->jsShow());
 
         $this->jquery->compile($this->view);
+        }else {
+            $this->view->pick("main/error");
+        }
     }
 
     public function updateAction()
     {
-        parent::updateAction();
-        //Retrouve l'id du dernier projet créer (En theorie celui qui vient d'être créé)
-        $projet = Projet::findFirst(array(
-            "order" => "id DESC"
-        ));
-        $idproj = $projet->getId();
-        $this->response->redirect("Projets/read/$idproj");
+        if ($this->verifyAccessAction($this->controller, "write")) {
+            parent::updateAction();
+            //Retrouve l'id du dernier projet créer (En theorie celui qui vient d'être créé)
+            $projet = Projet::findFirst(array(
+                "order" => "id DESC"
+            ));
+            $idproj = $projet->getId();
+            $this->response->redirect("Projets/read/$idproj");
+        }else {
+            $this->view->pick("main/error");
+        }
     }
 
     public function readAction($id = null, $redirect = null)
     {
-        $projet = Projet::findFirst($id);
-        $usecases = Usecase::find("idProjet = $id");
-        $messages = Message::find("idProjet = $id");
-        $colorTexte = "black";
+        if ($this->verifyAccessAction($this->controller, "read")) {
+            $projet = Projet::findFirst($id);
+            $usecases = Usecase::find("idProjet = $id");
+            $messages = Message::find("idProjet = $id");
+            $colorTexte = "black";
 
-        $color = array();
+            $color = array();
 
-        $color["r"] = 245;
-        $color["g"] = 245;
-        $color["b"] = 247;
+            $color["r"] = 245;
+            $color["g"] = 245;
+            $color["b"] = 247;
 
-        $avancementReel = $this->avancementReel($usecases);
+            $avancementReel = $this->avancementReel($usecases);
 
-        //Passage des différentes variables
-        $this->view->setVar("colorTexte", $colorTexte);
-        $this->view->setVar("color", $color);
-        $this->view->setVar("projet", $projet);
-        $this->view->setVar("messages", $messages);
-        $this->view->setVar("usecases", $usecases);
-        $this->view->setVar("avancement", $avancementReel);
+            //Passage des différentes variables
+            $this->view->setVar("colorTexte", $colorTexte);
+            $this->view->setVar("color", $color);
+            $this->view->setVar("projet", $projet);
+            $this->view->setVar("messages", $messages);
+            $this->view->setVar("usecases", $usecases);
+            $this->view->setVar("avancement", $avancementReel);
 
-        //Création de la progressbar
-        $progress = $this->jquery->bootstrap()->htmlProgressbar("progress", "info", $avancementReel);
-        $progress->showcaption(true);
-        $this->jquery->get("Projets/resume/$id", "#contentProjet");
-        //Creation des évenements onClick et des éléments sur le menu
-        $this->jquery->getOnClick("#menu1", "Projets/resume/$id", "#contentProjet");
-        $this->jquery->getOnClick("#menu2", "Projets/contributors/$id", "#contentProjet");
-        $this->jquery->getOnClick("#menu3", "Projets/usecases/$id", "#contentProjet");
-        $this->jquery->getOnClick("#menu5", "Projets/messages/$id", "#contentProjet");
+            //Création de la progressbar
+            $progress = $this->jquery->bootstrap()->htmlProgressbar("progress", "info", $avancementReel);
+            $progress->showcaption(true);
+            $this->jquery->get("Projets/resume/$id", "#contentProjet");
+            //Creation des évenements onClick et des éléments sur le menu
+            $this->jquery->getOnClick("#menu1", "Projets/resume/$id", "#contentProjet");
+            $this->jquery->getOnClick("#menu2", "Projets/contributors/$id", "#contentProjet");
+            $this->jquery->getOnClick("#menu3", "Projets/usecases/$id", "#contentProjet");
+            $this->jquery->getOnClick("#menu5", "Projets/messages/$id", "#contentProjet");
 
-        if ($redirect != null) {
-            switch ($redirect) {
-                case (1):
-                    $this->jquery->get("Projets/contributors/$id", "#contentProjet");
-                    break;
-                case (2):
-                    $this->jquery->get("Projets/usecases/$id", "#contentProjet");
-                    break;
-                case (3):
-                    $this->jquery->get("Projets/messages/$id", "#contentProjet");
-                    break;
+            if ($redirect != null) {
+                switch ($redirect) {
+                    case (1):
+                        $this->jquery->get("Projets/contributors/$id", "#contentProjet");
+                        break;
+                    case (2):
+                        $this->jquery->get("Projets/usecases/$id", "#contentProjet");
+                        break;
+                    case (3):
+                        $this->jquery->get("Projets/messages/$id", "#contentProjet");
+                        break;
+                }
             }
+
+
+            //Xeditable
+
+                $this->jquery->exec("$('#nom').editable()", true);
+                $this->jquery->exec("$('#image').editable()", true);
+
+            //Compilation de Jquery dans la vue
+            $this->jquery->compile($this->view);
+        }else {
+            $this->view->pick("main/error");
         }
-
-
-        //Xeditable
-        $this->jquery->exec("$('#nom').editable()", true);
-        $this->jquery->exec("$('#image').editable()", true);
-
-        //Compilation de Jquery dans la vue
-        $this->jquery->compile($this->view);
     }
 
     public function messagesAction($id = null)

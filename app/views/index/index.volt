@@ -6,7 +6,7 @@
         </div>
         <div class="col-md-8">
             <h1><span class="brandFalcon">FocusFalcon</span><p>Controllez vos projets du bout des doigts et communiquez facilement entre collaborateurs. </p></h1>
-            <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+            <p><a class="btn btn-primary btn-lg" href="{{ url("Index/more") }}" role="button">Learn more</a></p>
         </div>
         <hr/>
     </div>

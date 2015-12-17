@@ -21,9 +21,10 @@ class ControllerBase extends Controller
         $this->view->setVar("baseUrl", $baseUrl);
         $this->view->setVar("controller", $this->controller);
         $this->view->setVar("title", $this->title);
-        if ($this->verifyAccessAction($this->controller, "index")) {
-            $msg = "";
-        }
+    }
+
+    public function frmAction(){
+
     }
 
     public function indexAction($message = NULL)
@@ -59,10 +60,14 @@ class ControllerBase extends Controller
 
     public function readAction($id = NULL)
     {
-        if ($id != null) {
-            $object = call_user_func($this->model . '::find', "id = $id");
-            $this->view->setVar("object", $object);
-            $this->view->pick("main/read");
+        if ($this->verifyAccessAction($this->controller, "read")) {
+            if ($id != null) {
+                $object = call_user_func($this->model . '::find', "id = $id");
+                $this->view->setVar("object", $object);
+                $this->view->pick("main/read");
+            }
+        }else{
+
         }
     }
 
@@ -75,38 +80,45 @@ class ControllerBase extends Controller
 
     public function updateAction()
     {
-        $id = $this->request->getPost('id', 'int');
-        if ($this->request->isPost()) {
-            $object = $this->getInstance(@$_POST["id"]);
-            $this->setValuesToObject($object);
-            if ($id) {
-                try {
-                    $object->save();
-                    $msg = new DisplayedMessage("Instance de " . $this->model . " modifiée");
-                } catch (\Exception $e) {
-                    $msg = new DisplayedMessage("Impossible d'ajouter l'instance de " . $this->model, "danger : $e");
+        if ($this->verifyAccessAction($this->controller, "write")) {
+
+            $id = $this->request->getPost('id', 'int');
+            if ($this->request->isPost()) {
+                $object = $this->getInstance(@$_POST["id"]);
+                $this->setValuesToObject($object);
+                if ($id) {
+                    try {
+                        $object->save();
+                        $msg = new DisplayedMessage("Instance de " . $this->model . " modifiée");
+                    } catch (\Exception $e) {
+                        $msg = new DisplayedMessage("Impossible d'ajouter l'instance de " . $this->model, "danger : $e");
+                    }
+                } else {
+                    try {
+                        $object->save();
+                        $msg = new DisplayedMessage("Instance de " . $this->model . " ajoutée");
+                    } catch (\Exception $e) {
+                        $msg = new DisplayedMessage("Impossible d'ajouter l'instance de " . $this->model, "danger : $e");
+                    }
                 }
-            } else {
-                try {
-                    $object->save();
-                    $msg = new DisplayedMessage("Instance de " . $this->model . " ajoutée");
-                } catch (\Exception $e) {
-                    $msg = new DisplayedMessage("Impossible d'ajouter l'instance de " . $this->model, "danger : $e");
-                }
+                $this->dispatcher->forward(array("controller" => $this->dispatcher->getControllerName(), "action" => "index", "params" => array($msg)));
             }
-            $this->dispatcher->forward(array("controller" => $this->dispatcher->getControllerName(), "action" => "index", "params" => array($msg)));
         }
     }
 
     //PErmet l'édition d'un seul champ à la fois
     public function soloUpdateAction()
     {
-        $name = $this->request->getPost('name', 'string');
-        //Créer la fonction variable 'set' en fonction du name en POST
-        $func = 'set' . ucfirst($name);
-        $projet = call_user_func($this->model . '::findFirst', $_POST['pk']);
-        $projet->$func($_POST['value']);
-        $projet->save();
+        if ($this->verifyAccessAction($this->controller, "write")) {
+            if($this->session->has("user") && ($this->session->get("user")->getId() == $this->request->getPost('pk', 'int')) || $this->session->get("user")->getIdTypeUser() == 0){
+                $name = $this->request->getPost('name', 'string');
+                //Créer la fonction variable 'set' en fonction du name en POST
+                $func = 'set' . ucfirst($name);
+                $projet = call_user_func($this->model . '::findFirst', $_POST['pk']);
+                $projet->$func($_POST['value']);
+                $projet->save();
+            }
+        }
 
     }
 
@@ -117,6 +129,7 @@ class ControllerBase extends Controller
             $object = call_user_func($this->model . '::findFirst', "$id");
             $object->delete();
         }
+
         $this->response->redirect("$this->controller/index");
     }
 
@@ -187,6 +200,11 @@ class ControllerBase extends Controller
         }
     }
 
+
+    public function moreAction(){
+        $this->view->pick("main/more");
+    }
+
     /**
      * Affiche un message Alert bootstrap
      * @param DisplayedMessage $message
@@ -248,4 +266,29 @@ class ControllerBase extends Controller
         $this->_showMessage($message, "info", $timerInterval, $dismissable);
     }
 
+
+    public function isAdmin($userId){
+        $user = User::findFirst($userId);
+        if($user->getTypeUser() == 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function isActual($user){
+        if($this->session->has("user") || $user == $this->session->get("user")->getId()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function isAdminAndActual($user){
+        if($this->isAdmin($user) || $this->isActual($user)){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

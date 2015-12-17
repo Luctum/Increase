@@ -16,9 +16,9 @@ class UsersController extends ControllerBase
         $this->title = "Utilisateurs";
         $this->controller = "Users";
     }
-    
+
     public function loginAction() {
-    	
+
     }
     
     public function signInAction() {
@@ -33,11 +33,11 @@ class UsersController extends ControllerBase
     		if($userPseudo != NULL && password_verify($_POST['password'], $userPseudo->getPassword())) {
     			$this->session->set("user", $userPseudo);
     			$this->response->redirect("Index/index");
-    			$this->loadAclAction($userPseudo->getRole());
+    			$this->loadAclAction($userPseudo->getIdTypeUser());
     		} else if($userMail != NULL && password_verify($_POST['password'], $userMail->getPassword())) {
     			$this->session->set("user", $userMail);
     			$this->response->redirect("Index/index");
-    			$this->loadAclAction($userMail->getRole());
+    			$this->loadAclAction($userMail->getIdTypeUser());
     		} else {
     			echo $bootstrap->htmlAlert("alert1","L'identifiant ou le mot de passe est incorrecte.");
     		}
@@ -55,6 +55,8 @@ class UsersController extends ControllerBase
 
     public function readAction($id = null)
     {
+        if ($this->verifyAccessAction($this->controller, "read")) {
+
         $user = User::findFirst($id);
         $usecases = Usecase::find("idDev=$id");
         $projets = array();
@@ -71,6 +73,15 @@ class UsersController extends ControllerBase
         $this->jquery->exec("$('#mail').editable()", true);
 
         $this->jquery->compile($this->view);
+
+        }else {
+            $this->view->pick("main/error");
+        }
+    }
+
+    public function passwordAction(){
+        $password = password_hash("password", PASSWORD_DEFAULT);
+        echo $password;
     }
 }
 

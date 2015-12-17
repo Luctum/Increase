@@ -160,4 +160,8 @@ class Acl extends \Phalcon\Mvc\Model
     {
         return parent::findFirst($parameters);
     }
+
+    public function toString(){
+        return " ".$this->getRessource()->getLibelle()." accessible par ".$this->getTypeUser()->getLibelle()." en droit '".$this->getOperation()->getOperation()."'";
+    }
 }
