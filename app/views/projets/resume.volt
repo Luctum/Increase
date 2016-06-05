@@ -11,7 +11,7 @@
                                                                                         data-title="Date de fin prévue">{{ projet.getDateFinPrevue() }}</span>
     </div>
     <div class="col-sm-4" style="text-align: right;"><i>Client :</i> <span
-                id="idClient" data-url="{{ url("Projets/soloUpdate") }}" ">{{ projet.getClient().getIdentite() }}</span>
+                id="idClient" data-url="{{ url("Projets/soloUpdate") }}">{{ projet.getClient().getIdentite() }}</span>
     </div>
     <br/>
 </div>

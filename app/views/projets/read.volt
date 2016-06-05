@@ -6,8 +6,10 @@
          data-url="{{ url("Projets/soloUpdate") }} " data-type="text" data-pk="{{ projet.getId() }}"
          data-title="Url de l'image">
     <span class="h" style="color: {{ colorTexte }};">Projet : <a
-                id="mail"
-                data-url="{{ url("Projets/soloUpdate") }} " data-type="text" data-pk="{{ projet.getId() }}"
+                id="nom"
+                data-url="{{ url("Projets/soloUpdate") }} "
+                data-type="text"
+                data-pk="{{ projet.getId() }}"
                 data-title="Nom du projet">{{ projet.getNom() }}</a></span>
 
     <a href="{{ url("Projets/index") }}">

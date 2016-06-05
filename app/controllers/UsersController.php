@@ -83,5 +83,33 @@ class UsersController extends ControllerBase
         $password = password_hash("password", PASSWORD_DEFAULT);
         echo $password;
     }
+
+    public function frmAction()
+    {
+        if ($this->verifyAccessAction($this->controller, "write")) {
+            $typeUser = TypeUser::find();
+            $this->view->setVar("typeUser", $typeUser);
+        }else {
+            $this->view->pick("main/error");
+        }
+
+    }
+
+    public function updateAction(){
+        if ($this->verifyAccessAction($this->controller, "write")) {
+            if ($this->request->isPost()) {
+                $user = new User();
+                $this->setValuesToObject($user);
+                $user->setPassword(password_hash($this->request->getPost("password", "string"), PASSWORD_DEFAULT));
+                try {
+                    $user->save();
+                    echo "Instance de " . $this->model . " ajoutée";
+                } catch (\Exception $e) {
+                    echo "Impossible d'ajouter l'instance de " . $this->model, "danger : $e";
+                }
+            }
+        }
+        $this->response->redirect("$this->controller/index");
+    }
 }
 
